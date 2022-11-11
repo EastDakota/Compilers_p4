@@ -1,0 +1,9 @@
+def int main() {
+    return 0;
+}
+def int foo() {
+    return 2;
+}
+def int bar() {
+    return 6;
+}

@@ -1,0 +1,59 @@
+main:
+  push BP
+  i2i SP => BP
+  addI SP, -8 => SP
+  loadI 1 => r1
+  storeAI r1 => [1+EMPTY]
+  loadI 9 => r2
+  i2i r2 => RET
+  jump l0
+l0:
+  i2i BP => SP
+  pop BP
+  return
+
+==========================
+sp=65536 bp=-9999999 ret=-9999999
+virtual regs: 
+stack:
+other memory:
+==========================
+
+Executing: push BP
+
+==========================
+sp=65528 bp=-9999999 ret=-9999999
+virtual regs: 
+stack:  65528: -9999999
+other memory:
+==========================
+
+Executing: i2i SP => BP
+
+==========================
+sp=65528 bp=65528 ret=-9999999
+virtual regs: 
+stack:  65528: -9999999
+other memory:
+==========================
+
+Executing: addI SP, -8 => SP
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs: 
+stack:  65528: -9999999  65520: 0
+other memory:
+==========================
+
+Executing: loadI 1 => r1
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r1=1
+stack:  65528: -9999999  65520: 0
+other memory:
+==========================
+
+Executing: storeAI r1 => [1+EMPTY]
+ERROR: Invalid instruction (expected 3 operands but found 2): storeAI r1 => [1+EMPTY]

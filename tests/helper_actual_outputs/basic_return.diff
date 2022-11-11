@@ -1,0 +1,97 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_return.txt	2022-11-10 00:09:30.544703291 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_return.txt	2022-11-10 00:09:30.548703329 -0500
+@@ -1,7 +1,7 @@
+ main:
+   push BP
+   i2i SP => BP
+-  addI SP, -8 => SP
++  addI SP, 0 => SP
+   loadI 0 => r0
+   i2i r0 => RET
+   jump l0
+@@ -9,85 +9,4 @@
+   i2i BP => SP
+   pop BP
+   return
+-
+-==========================
+-sp=65536 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:
+-other memory:
+-==========================
+-
+-Executing: push BP
+-
+-==========================
+-sp=65528 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: i2i SP => BP
+-
+-==========================
+-sp=65528 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: addI SP, -8 => SP
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: loadI 0 => r0
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=0
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i r0 => RET
+-
+-==========================
+-sp=65520 bp=65528 ret=0
+-virtual regs:  r0=0
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: jump l0
+-
+-==========================
+-sp=65520 bp=65528 ret=0
+-virtual regs:  r0=0
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i BP => SP
+-
+-==========================
+-sp=65528 bp=65528 ret=0
+-virtual regs:  r0=0
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: pop BP
+-
+-==========================
+-sp=65536 bp=-9999999 ret=0
+-virtual regs:  r0=0
+-stack:
+-other memory:  65528: -9999999
+-==========================
+-
+-Executing: return
+ RETURN VALUE = 0

@@ -1,0 +1,35 @@
+digraph AST {
+3 [shape=box, label="VarDecl name='a'"];
+5 [shape=box, label="Location name='a'\ntype: int"];
+6 [shape=box, label="Literal value=0\ncode: \nloadI 0 => r0\nreg: r0\ntype: int"];
+4 [shape=box, label="Assignment\ncode: \nloadI 1 => r1\nstoreAI r1 => [1+EMPTY]"];
+4 -> 5;
+4 -> 6;
+9 [shape=box, label="Location name='a'\ntype: int"];
+10 [shape=box, label="Literal value=3\ncode: \nloadI 3 => r2\nreg: r2\ntype: int"];
+8 [shape=box, label="BinaryOp op='<'\nreg: r3\ncode: \nloadI 3 => r2\ncmp_LT r-1, r2 => r3\ntype: bool"];
+8 -> 9;
+8 -> 10;
+13 [shape=box, label="Location name='a'\ntype: int"];
+15 [shape=box, label="Location name='a'\ntype: int"];
+16 [shape=box, label="Literal value=1\ncode: \nloadI 1 => r4\nreg: r4\ntype: int"];
+14 [shape=box, label="BinaryOp op='+'\nreg: r5\ncode: \nloadI 1 => r4\nadd r-1, r4 => r5\ntype: int"];
+14 -> 15;
+14 -> 16;
+12 [shape=box, label="Assignment\ncode: \nloadI 1 => r6\nstoreAI r6 => [1+EMPTY]"];
+12 -> 13;
+12 -> 14;
+11 [shape=box, label="Block\ncode: \nloadI 1 => r6\nstoreAI r6 => [1+EMPTY]\njump l0\nsymbolTable: (empty)"];
+11 -> 12;
+7 [shape=box, label="WhileLoop"];
+7 -> 8;
+7 -> 11;
+2 [shape=box, label="Block\ncode: \nloadI 1 => r1\nstoreAI r1 => [1+EMPTY]\njump l0\nsymbolTable: \n  a : int {stack offset=-8}"];
+2 -> 3;
+2 -> 4;
+2 -> 7;
+1 [shape=box, label="FuncDecl name='main'\ncode: \nmain:\npush BP\ni2i SP => BP\naddI SP, -8 => SP\nloadI 1 => r1\nstoreAI r1 => [1+EMPTY]\njump l0\nl0:\ni2i BP => SP\npop BP\nreturn\nlocalSize: 8\nsymbolTable: (empty)"];
+1 -> 2;
+0 [shape=box, label="Program\ncode: \nmain:\npush BP\ni2i SP => BP\naddI SP, -8 => SP\nloadI 1 => r1\nstoreAI r1 => [1+EMPTY]\njump l0\nl0:\ni2i BP => SP\npop BP\nreturn\nstaticSize: 0\nsymbolTable: \n  print_int : (int) -> void\n  print_bool : (bool) -> void\n  print_str : (str) -> void\n  main : () -> int"];
+0 -> 1;
+}

@@ -1,0 +1,56 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/return_negative.txt	2022-11-10 00:09:31.836715487 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/return_negative.txt	2022-11-10 00:09:31.840715524 -0500
+@@ -1,47 +1,13 @@
+-ERROR: Node is missing a temporary registermain:
++main:
+   push BP
+   i2i SP => BP
+-  addI SP, -8 => SP
+-  i2i r-1 => RET
++  addI SP, 0 => SP
++  loadI 1 => r0
++  neg r0 => r1
++  i2i r1 => RET
+   jump l0
+ l0:
+   i2i BP => SP
+   pop BP
+   return
+-
+-==========================
+-sp=65536 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:
+-other memory:
+-==========================
+-
+-Executing: push BP
+-
+-==========================
+-sp=65528 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: i2i SP => BP
+-
+-==========================
+-sp=65528 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: addI SP, -8 => SP
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i r-1 => RET
+-ERROR: Register r-1 does not exist
++RETURN VALUE = -1

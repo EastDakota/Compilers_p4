@@ -1,0 +1,26 @@
+main:
+  push BP
+  i2i SP => BP
+  addI SP, -8 => SP
+  loadI 3 => r0
+  storeAI r0 => [BP-8]
+l1:
+  loadAI [BP-8] => r1
+  loadI 5 => r2
+  cmp_LT r1, r2 => r3
+  cbr r3 => l2, l3
+l2:
+  loadAI [BP-8] => r4
+  loadI 1 => r5
+  add r4, r5 => r6
+  storeAI r6 => [BP-8]
+  jump l1
+l3:
+  loadI 9 => r7
+  i2i r7 => RET
+  jump l0
+l0:
+  i2i BP => SP
+  pop BP
+  return
+RETURN VALUE = 9

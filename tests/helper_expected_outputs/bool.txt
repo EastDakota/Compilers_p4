@@ -1,0 +1,14 @@
+main:
+  push BP
+  i2i SP => BP
+  addI SP, -8 => SP
+  loadI 1 => r0
+  storeAI r0 => [BP-8]
+  loadI 0 => r1
+  i2i r1 => RET
+  jump l0
+l0:
+  i2i BP => SP
+  pop BP
+  return
+RETURN VALUE = 0

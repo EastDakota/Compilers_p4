@@ -1,0 +1,7 @@
+def int main() {
+    return 2;
+}
+
+def bool foo() {
+    return false;
+}

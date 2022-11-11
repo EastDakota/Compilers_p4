@@ -1,0 +1,13 @@
+def int main() {
+    int x;
+    int y;
+    int a;
+    x = 2;
+    y = 2;
+    if (x < 0) {
+        a = x + y;
+    } else {
+        a = x * y;
+    }
+    return a * a * a;
+}
