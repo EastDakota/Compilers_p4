@@ -1,6 +1,8 @@
 /**
  * @file p4-codegen.c
  * @brief Compiler phase 4: code generation
+ *
+ * @author Dylan Roth & Dakota Scott
  */
 #include "p4-codegen.h"
 
