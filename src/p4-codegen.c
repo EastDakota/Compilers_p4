@@ -203,7 +203,7 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(POP, DATA->bp);
     EMIT0OP(RETURN);
 }
-void CodeGenVisitor_gen_binaryop (NodeVisitor* visior, ASTNode* node) 
+void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node) 
 {
     ASTNode_copy_code(node, node->binaryop.left);
     Operand left_reg = ASTNode_get_temp_reg(node->binaryop.left);
@@ -246,6 +246,22 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visior, ASTNode* node)
             //printf("Error, I really don't know why this would pop up"); exit(1); break;
     }
 }
+void CodeGenVisitor_gen_unaryop (NodeVisitor* visitor, ASTNode* node) 
+{
+    ASTNode_copy_code(node, node->unaryop.child);
+    Operand child_reg = ASTNode_get_temp_reg(node->unaryop.child);
+    Operand store_reg = virtual_register();
+    ASTNode_set_temp_reg(node, store_reg);
+    switch (node->unaryop.operator)
+    {
+        case NEGOP:
+            EMIT2OP(NEG, child_reg, store_reg); break;
+        case NOTOP:
+            EMIT2OP(NOT, child_reg, store_reg); break;
+        default:
+            break;
+    }
+}
 
 #endif
 InsnList* generate_code (ASTNode* tree)
@@ -268,6 +284,8 @@ InsnList* generate_code (ASTNode* tree)
     v->postvisit_assignment = CodeGenVisitor_gen_assignment;
     // Binary Op
     v->postvisit_binaryop   = CodeGenVisitor_gen_binaryop;
+    // Unary Op
+    v->postvisit_unaryop    = CodeGenVisitor_gen_unaryop;
     // Block Statements
     v->postvisit_block      = CodeGenVisitor_gen_block;
     // Program
