@@ -222,6 +222,8 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visior, ASTNode* node)
             EMIT3OP(DIV, left_reg, right_reg, store_reg); break;
         case ANDOP:
             EMIT3OP(AND, left_reg, right_reg, store_reg); break;
+        case OROP:
+            EMIT3OP(OR, left_reg, right_reg, store_reg); break;
         case EQOP:
             EMIT3OP(CMP_EQ, left_reg, right_reg, store_reg); break;
         case NEQOP:
