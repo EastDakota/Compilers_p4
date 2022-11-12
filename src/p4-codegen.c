@@ -153,7 +153,8 @@ void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
 void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
 {
     Operand store_register = virtual_register();
-    //Operand value = ASTNode_get_temp_reg(node->assignment.value);
+    // Operand value = ASTNode_get_temp_reg(node->assignment.value);
+    // Operand location = ASTNode_get_temp_reg(node->assignment.location);
     EMIT2OP(LOAD_I, int_const(1), store_register);
     EMIT2OP(STORE_AI, store_register, int_const(1));
 }
