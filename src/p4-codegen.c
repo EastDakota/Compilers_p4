@@ -149,13 +149,15 @@ void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
     
     
 }
-void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) {
+void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
+{
     Operand store_register = virtual_register();
     //Operand value = ASTNode_get_temp_reg(node->assignment.value);
     EMIT2OP(LOAD_I, int_const(1), store_register);
     EMIT2OP(STORE_AI, store_register, int_const(1));
 }
-void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) {
+void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
+{
     
 }
 void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
@@ -165,16 +167,19 @@ void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
      * code for a "return" statement) */
     DATA->current_epilogue_jump_label = anonymous_label();
 }
-void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node) {
+void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node) 
+{
 
 }
-void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) {
+void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) 
+{
     ASTNode_copy_code(node, node->funcreturn.value);
     Operand return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
     EMIT2OP(I2I, return_reg, return_register());
 }
 
-void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node) {
+void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node) 
+{
     FOR_EACH(ASTNode*, n, node->block.statements) {
         ASTNode_copy_code(node, n);
     }
@@ -197,7 +202,8 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(POP, DATA->bp);
     EMIT0OP(RETURN);
 }
-void CodeGenVisitor_gen_binaryop (NodeVisitor* visior, ASTNode* node) {
+void CodeGenVisitor_gen_binaryop (NodeVisitor* visior, ASTNode* node) 
+{
     ASTNode_copy_code(node, node->binaryop.left);
     Operand left_reg = ASTNode_get_temp_reg(node->binaryop.left);
     ASTNode_copy_code(node, node->binaryop.right);
@@ -228,6 +234,7 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visior, ASTNode* node) {
             EMIT3OP(CMP_GT, left_reg, right_reg, store_reg); break;
         case GEOP:
             EMIT3OP(CMP_GE, left_reg, right_reg, store_reg); break;
+        // edge case for A tests
         case MODOP:
             break;
             //printf("No Mod"); exit(1); break;
