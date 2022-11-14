@@ -1,13 +1,10 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/joselyne.txt	2022-11-10 00:09:31.040707973 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/joselyne.txt	2022-11-10 00:09:31.048708048 -0500
-@@ -1,9 +1,21 @@
--ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/joselyne.txt	2022-11-14 17:22:01.396088031 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/joselyne.txt	2022-11-14 17:22:01.592089992 -0500
+@@ -0,0 +1,26 @@
 +main:
-   push BP
-   i2i SP => BP
-   addI SP, -8 => SP
--  loadI 1 => r1
--  storeAI r1 => [1+EMPTY]
++  push BP
++  i2i SP => BP
++  addI SP, -8 => SP
 +  loadI 3 => r0
 +  storeAI r0 => [BP-8]
 +l1:
@@ -22,57 +19,11 @@
 +  storeAI r6 => [BP-8]
 +  jump l1
 +l3:
-   loadI 9 => r7
-   i2i r7 => RET
-   jump l0
-@@ -11,49 +23,4 @@
-   i2i BP => SP
-   pop BP
-   return
--
--==========================
--sp=65536 bp=-9999999 ret=-9999999
--virtual regs: 
--stack:
--other memory:
--==========================
--
--Executing: push BP
--
--==========================
--sp=65528 bp=-9999999 ret=-9999999
--virtual regs: 
--stack:  65528: -9999999
--other memory:
--==========================
--
--Executing: i2i SP => BP
--
--==========================
--sp=65528 bp=65528 ret=-9999999
--virtual regs: 
--stack:  65528: -9999999
--other memory:
--==========================
--
--Executing: addI SP, -8 => SP
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs: 
--stack:  65528: -9999999  65520: 0
--other memory:
--==========================
--
--Executing: loadI 1 => r1
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r1=1
--stack:  65528: -9999999  65520: 0
--other memory:
--==========================
--
--Executing: storeAI r1 => [1+EMPTY]
--ERROR: Invalid instruction (expected 3 operands but found 2): storeAI r1 => [1+EMPTY]
++  loadI 9 => r7
++  i2i r7 => RET
++  jump l0
++l0:
++  i2i BP => SP
++  pop BP
++  return
 +RETURN VALUE = 9

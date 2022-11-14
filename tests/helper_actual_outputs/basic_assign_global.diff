@@ -1,0 +1,145 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_assign_global.txt	2022-11-14 17:22:00.444078505 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_assign_global.txt	2022-11-14 17:22:00.448078545 -0500
+@@ -1,133 +1,18 @@
+-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
++main:
+   push BP
+   i2i SP => BP
+-  addI SP, -8 => SP
++  addI SP, 0 => SP
+   loadI 2 => r0
+-  storeAI r0 => [BP+0]
+-  loadI 0 => r1
+-  storeAI r1 => [BP+0]
+-  loadI 3 => r2
+-  i2i r2 => RET
++  loadI 256 => r1
++  storeAI r0 => [r1+0]
++  loadI 0 => r2
++  loadI 264 => r3
++  storeAI r2 => [r3+0]
++  loadI 3 => r4
++  i2i r4 => RET
+   jump l0
+ l0:
+   i2i BP => SP
+   pop BP
+   return
+-
+-==========================
+-sp=65536 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:
+-other memory:
+-==========================
+-
+-Executing: push BP
+-
+-==========================
+-sp=65528 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: i2i SP => BP
+-
+-==========================
+-sp=65528 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: addI SP, -8 => SP
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: loadI 2 => r0
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=2
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: storeAI r0 => [BP+0]
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=2
+-stack:  65528: 2  65520: 0
+-other memory:
+-==========================
+-
+-Executing: loadI 0 => r1
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=2 r1=0
+-stack:  65528: 2  65520: 0
+-other memory:
+-==========================
+-
+-Executing: storeAI r1 => [BP+0]
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=2 r1=0
+-stack:  65528: 0  65520: 0
+-other memory:
+-==========================
+-
+-Executing: loadI 3 => r2
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=2 r1=0 r2=3
+-stack:  65528: 0  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i r2 => RET
+-
+-==========================
+-sp=65520 bp=65528 ret=3
+-virtual regs:  r0=2 r1=0 r2=3
+-stack:  65528: 0  65520: 0
+-other memory:
+-==========================
+-
+-Executing: jump l0
+-
+-==========================
+-sp=65520 bp=65528 ret=3
+-virtual regs:  r0=2 r1=0 r2=3
+-stack:  65528: 0  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i BP => SP
+-
+-==========================
+-sp=65528 bp=65528 ret=3
+-virtual regs:  r0=2 r1=0 r2=3
+-stack:  65528: 0
+-other memory:
+-==========================
+-
+-Executing: pop BP
+-
+-==========================
+-sp=65536 bp=0 ret=3
+-virtual regs:  r0=2 r1=0 r2=3
+-stack:
+-other memory:
+-==========================
+-
+-Executing: return
+ RETURN VALUE = 3

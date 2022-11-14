@@ -1,10 +1,13 @@
-main:
+ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
   push BP
   i2i SP => BP
   addI SP, -8 => SP
-  loadI 1 => r0
-  neg r0 => r1
-  i2i r1 => RET
+  loadI 2 => r0
+  storeAI r0 => [BP+0]
+  loadI 0 => r1
+  storeAI r1 => [BP+0]
+  loadI 3 => r2
+  i2i r2 => RET
   jump l0
 l0:
   i2i BP => SP
@@ -45,59 +48,86 @@ stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: loadI 1 => r0
+Executing: loadI 2 => r0
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=1
+virtual regs:  r0=2
 stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: neg r0 => r1
+Executing: storeAI r0 => [BP+0]
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=1 r1=-1
-stack:  65528: -9999999  65520: 0
+virtual regs:  r0=2
+stack:  65528: 2  65520: 0
 other memory:
 ==========================
 
-Executing: i2i r1 => RET
+Executing: loadI 0 => r1
 
 ==========================
-sp=65520 bp=65528 ret=-1
-virtual regs:  r0=1 r1=-1
-stack:  65528: -9999999  65520: 0
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=0
+stack:  65528: 2  65520: 0
+other memory:
+==========================
+
+Executing: storeAI r1 => [BP+0]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=0
+stack:  65528: 0  65520: 0
+other memory:
+==========================
+
+Executing: loadI 3 => r2
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=0 r2=3
+stack:  65528: 0  65520: 0
+other memory:
+==========================
+
+Executing: i2i r2 => RET
+
+==========================
+sp=65520 bp=65528 ret=3
+virtual regs:  r0=2 r1=0 r2=3
+stack:  65528: 0  65520: 0
 other memory:
 ==========================
 
 Executing: jump l0
 
 ==========================
-sp=65520 bp=65528 ret=-1
-virtual regs:  r0=1 r1=-1
-stack:  65528: -9999999  65520: 0
+sp=65520 bp=65528 ret=3
+virtual regs:  r0=2 r1=0 r2=3
+stack:  65528: 0  65520: 0
 other memory:
 ==========================
 
 Executing: i2i BP => SP
 
 ==========================
-sp=65528 bp=65528 ret=-1
-virtual regs:  r0=1 r1=-1
-stack:  65528: -9999999
+sp=65528 bp=65528 ret=3
+virtual regs:  r0=2 r1=0 r2=3
+stack:  65528: 0
 other memory:
 ==========================
 
 Executing: pop BP
 
 ==========================
-sp=65536 bp=-9999999 ret=-1
-virtual regs:  r0=1 r1=-1
+sp=65536 bp=0 ret=3
+virtual regs:  r0=2 r1=0 r2=3
 stack:
-other memory:  65528: -9999999
+other memory:
 ==========================
 
 Executing: return
-RETURN VALUE = -1
+RETURN VALUE = 3

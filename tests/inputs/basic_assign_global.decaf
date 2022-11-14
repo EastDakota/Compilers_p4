@@ -1,0 +1,7 @@
+int a;
+bool b;
+def int main() {
+    a = 2;
+    b = false;
+    return 3;
+}

@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/sanity.txt	2022-11-10 00:09:31.912716204 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/sanity.txt	2022-11-10 00:09:31.916716241 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/sanity.txt	2022-11-14 17:22:02.376097837 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/sanity.txt	2022-11-14 17:22:02.380097878 -0500
 @@ -1,7 +1,7 @@
  main:
    push BP

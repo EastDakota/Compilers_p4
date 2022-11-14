@@ -110,6 +110,8 @@ Operand var_offset (ASTNode* node, Symbol* variable)
 #define EMIT1OP(FORM,OP1)         ASTNode_emit_insn(node, ILOCInsn_new_1op(FORM,OP1))
 #define EMIT2OP(FORM,OP1,OP2)     ASTNode_emit_insn(node, ILOCInsn_new_2op(FORM,OP1,OP2))
 #define EMIT3OP(FORM,OP1,OP2,OP3) ASTNode_emit_insn(node, ILOCInsn_new_3op(FORM,OP1,OP2,OP3))
+#define FALSE                     int_const(0)
+#define TRUE                      int_const(1)
 void CodeGenVisitor_previsit_program(NodeVisitor* visitor, ASTNode* node) {
     EMIT1OP(PUSH, DATA->bp);
 }
@@ -139,24 +141,45 @@ void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
         break;
     case BOOL:
         if(node->literal.boolean) {
-            EMIT2OP(LOAD_I, int_const(1), reg);
+            EMIT2OP(LOAD_I, TRUE, reg);
         } else {
-            EMIT2OP(LOAD_I, int_const(0), reg);
+            EMIT2OP(LOAD_I, FALSE, reg);
+        }
+        break;
+    default:
+        break;
+    } 
+}
+void CodeGenVisitor_previsit_assignment(NodeVisitor* visitor, ASTNode* node) {
+    // Figure out which register to load to by making a register
+    // Figure out the offset to send it back to
+}
+
+void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
+{
+    ASTNode_copy_code(node, node->assignment.location);
+    ASTNode_copy_code(node, node->assignment.value);
+    DecafType literal_type = node->assignment.location->type;
+    Operand loc_op = ASTNode_get_temp_reg(node->assignment.location);
+    EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), DATA->bp, int_const(LOCAL_BP_OFFSET));
+    switch (literal_type)
+    {
+    case INT:
+        EMIT2OP(LOAD_I, int_const(node->literal.integer), loc_op);
+        EMIT2OP(STORE_AI, int_const(node->literal.integer), loc_op);
+        break;
+    case BOOL:
+        if(node->literal.boolean) {
+            EMIT2OP(LOAD_I, TRUE, loc_op);
+            EMIT2OP(STORE_AI, loc_op, TRUE);
+        } else {
+            EMIT2OP(LOAD_I, FALSE, loc_op);
+            EMIT2OP(STORE_AI, loc_op, FALSE);
         }
         break;
     default:
         break;
     }
-    
-    
-}
-void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
-{
-    Operand store_register = virtual_register();
-    // Operand value = ASTNode_get_temp_reg(node->assignment.value);
-    // Operand location = ASTNode_get_temp_reg(node->assignment.location);
-    EMIT2OP(LOAD_I, int_const(1), store_register);
-    EMIT2OP(STORE_AI, store_register, int_const(1));
 }
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -171,7 +194,8 @@ void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
 }
 void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node) 
 {
-
+    // Operand funcreturn_reg = virtual_register();
+    // ASTNode_set_temp_reg(node->funcreturn.value, funcreturn_reg);
 }
 void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -188,6 +212,16 @@ void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(JUMP, DATA->current_epilogue_jump_label);
 }
 
+void CodeGenVisitor_previsit_vardecl(NodeVisitor* visitor, ASTNode* node) {
+    //Operand var_reg = virtual_register();
+    //ASTNode_set_temp_reg(node, var_reg);
+}
+
+void CodeGenVisitor_gen_vardecl(NodeVisitor* visitor, ASTNode* node) {
+    Operand var_reg = virtual_register();
+    ASTNode_set_temp_reg(node, var_reg);
+    ASTNode_set_int_attribute(node, "var_offset", LOCAL_BP_OFFSET);
+}
 void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
 {
     /* every function begins with the corresponding call label */
@@ -195,6 +229,7 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     /* BOILERPLATE: TODO: implement prologue */
     EMIT1OP(PUSH, DATA->bp);
     EMIT2OP(I2I, DATA->sp, DATA->bp);
+    // Figure out the offset of the current function
     EMIT3OP(ADD_I, DATA->sp, int_const(LOCAL_BP_OFFSET), DATA->sp);
     /* copy code from body */
     ASTNode_copy_code(node, node->funcdecl.body);
@@ -203,6 +238,10 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT2OP(I2I, DATA->bp, DATA->sp);
     EMIT1OP(POP, DATA->bp);
     EMIT0OP(RETURN);
+}
+void CodeGenVisitor_previsit_binaryop(NodeVisitor* visitor, ASTNode* node) 
+{
+    
 }
 void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -247,6 +286,8 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node)
             //printf("Error, I really don't know why this would pop up"); exit(1); break;
     }
 }
+void CodeGenVisitor_previsit_unaryop(NodeVisitor* visitor, ASTNode* node) {
+}
 void CodeGenVisitor_gen_unaryop (NodeVisitor* visitor, ASTNode* node) 
 {
     ASTNode_copy_code(node, node->unaryop.child);
@@ -274,6 +315,9 @@ InsnList* generate_code (ASTNode* tree)
     NodeVisitor* v = NodeVisitor_new();
     v->data = CodeGenData_new();
     v->dtor = (Destructor)CodeGenData_free;
+    // VarDecls
+    v->previsit_vardecl     = CodeGenVisitor_previsit_vardecl;
+    //v->postvisit_vardecl   = CodeGenVisitor_gen_vardecl;
     // FuncDecls
     v->previsit_funcdecl    = CodeGenVisitor_previsit_funcdecl;
     v->postvisit_funcdecl   = CodeGenVisitor_gen_funcdecl;
@@ -282,10 +326,12 @@ InsnList* generate_code (ASTNode* tree)
     // Literals
     v->postvisit_literal    = CodeGenVisitor_gen_literal; 
     // Assignments
+    v->previsit_assignment  = CodeGenVisitor_previsit_assignment;
     v->postvisit_assignment = CodeGenVisitor_gen_assignment;
     // Binary Op
     v->postvisit_binaryop   = CodeGenVisitor_gen_binaryop;
     // Unary Op
+    v->previsit_unaryop     = CodeGenVisitor_previsit_unaryop;
     v->postvisit_unaryop    = CodeGenVisitor_gen_unaryop;
     // Block Statements
     v->postvisit_block      = CodeGenVisitor_gen_block;

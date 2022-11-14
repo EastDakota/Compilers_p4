@@ -1,18 +1,15 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_negative.txt	2022-11-10 00:09:30.468702574 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_negative.txt	2022-11-10 00:09:30.472702611 -0500
-@@ -1,47 +1,13 @@
--ERROR: Node is missing a temporary registermain:
-+main:
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_negative.txt	2022-11-14 17:22:00.904083108 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_negative.txt	2022-11-14 17:22:00.908083147 -0500
+@@ -1,7 +1,7 @@
+ main:
    push BP
    i2i SP => BP
 -  addI SP, -8 => SP
--  i2i r-1 => RET
 +  addI SP, 0 => SP
-+  loadI 1 => r0
-+  neg r0 => r1
-+  i2i r1 => RET
-   jump l0
- l0:
+   loadI 1 => r0
+   neg r0 => r1
+   i2i r1 => RET
+@@ -10,94 +10,4 @@
    i2i BP => SP
    pop BP
    return
@@ -51,6 +48,59 @@
 -other memory:
 -==========================
 -
--Executing: i2i r-1 => RET
--ERROR: Register r-1 does not exist
-+RETURN VALUE = -1
+-Executing: loadI 1 => r0
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=1
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: neg r0 => r1
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=1 r1=-1
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i r1 => RET
+-
+-==========================
+-sp=65520 bp=65528 ret=-1
+-virtual regs:  r0=1 r1=-1
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: jump l0
+-
+-==========================
+-sp=65520 bp=65528 ret=-1
+-virtual regs:  r0=1 r1=-1
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: i2i BP => SP
+-
+-==========================
+-sp=65528 bp=65528 ret=-1
+-virtual regs:  r0=1 r1=-1
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: pop BP
+-
+-==========================
+-sp=65536 bp=-9999999 ret=-1
+-virtual regs:  r0=1 r1=-1
+-stack:
+-other memory:  65528: -9999999
+-==========================
+-
+-Executing: return
+ RETURN VALUE = -1

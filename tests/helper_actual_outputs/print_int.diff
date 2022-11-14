@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/print_int.txt	2022-11-10 00:09:31.536712655 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/print_int.txt	2022-11-10 00:09:31.540712692 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/print_int.txt	2022-11-14 17:22:02.000094075 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/print_int.txt	2022-11-14 17:22:02.004094115 -0500
 @@ -1,7 +1,9 @@
  main:
    push BP
