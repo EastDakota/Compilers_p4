@@ -1,13 +1,13 @@
 main:
   push BP
   i2i SP => BP
-  addI SP, -24 => SP
+  addI SP, -32 => SP
   loadI 2 => r0
   storeAI r0 => [BP-8]
   loadI 1 => r1
-  storeAI r1 => [BP-24]
+  storeAI r1 => [BP-32]
   loadI 0 => r2
-  storeAI r2 => [BP-24]
+  storeAI r2 => [BP-32]
   loadI 3 => r3
   storeAI r3 => [BP-8]
   loadI 2 => r4
@@ -18,16 +18,12 @@ main:
   storeAI r7 => [BP-8]
   loadAI [BP-8] => r8
   storeAI r8 => [BP-16]
-  loadAI [BP-16] => r9
-  loadI 2 => r10
+  loadAI [BP-8] => r9
+  loadAI [BP-16] => r10
   add r9, r10 => r11
-  storeAI r11 => [BP-8]
+  storeAI r11 => [BP-24]
   loadI 1 => r12
-  loadI 0 => r13
-  or r12, r13 => r14
-  storeAI r14 => [BP-24]
-  loadI 1 => r15
-  i2i r15 => RET
+  i2i r12 => RET
   jump l0
 l0:
   i2i BP => SP

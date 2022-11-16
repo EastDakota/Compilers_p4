@@ -1,9 +1,9 @@
-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
+main:
   push BP
   i2i SP => BP
   addI SP, -8 => SP
-  loadI 0 => r0
-  storeAI r0 => [BP-8]
+  loadI 0 => r1
+  storeAI r1 => [BP-8]
   jump l0
 l0:
   i2i BP => SP
@@ -44,20 +44,20 @@ stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: loadI 0 => r0
+Executing: loadI 0 => r1
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0
+virtual regs:  r1=0
 stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: storeAI r0 => [BP-8]
+Executing: storeAI r1 => [BP-8]
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0
+virtual regs:  r1=0
 stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
@@ -66,7 +66,7 @@ Executing: jump l0
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0
+virtual regs:  r1=0
 stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
@@ -75,7 +75,7 @@ Executing: i2i BP => SP
 
 ==========================
 sp=65528 bp=65528 ret=-9999999
-virtual regs:  r0=0
+virtual regs:  r1=0
 stack:  65528: -9999999
 other memory:
 ==========================
@@ -84,7 +84,7 @@ Executing: pop BP
 
 ==========================
 sp=65536 bp=-9999999 ret=-9999999
-virtual regs:  r0=0
+virtual regs:  r1=0
 stack:
 other memory:  65528: -9999999
 ==========================

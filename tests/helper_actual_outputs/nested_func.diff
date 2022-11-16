@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/nested_func.txt	2022-11-16 15:33:39.961839048 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/nested_func.txt	2022-11-16 15:33:39.965839084 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/nested_func.txt	2022-11-16 15:54:07.653344774 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/nested_func.txt	2022-11-16 15:54:07.657344813 -0500
 @@ -1,9 +1,12 @@
  main:
    push BP

@@ -1,6 +1,7 @@
 def int main() {
     int a;
     int c;
+    int d;
     bool b;
     a = 2;
     b = true;
@@ -9,7 +10,8 @@ def int main() {
     a = 2 + 3;
     a = a;
     c = a;
-    a = c + 2;
-    b = true || false;
+    //a = c + 2;
+    //b = true || false;
+    d = a + c;
     return 1;
 }

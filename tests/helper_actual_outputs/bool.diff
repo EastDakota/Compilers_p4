@@ -1,6 +1,19 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/bool.txt	2022-11-16 15:33:39.593835791 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/bool.txt	2022-11-16 15:33:39.601835862 -0500
-@@ -11,103 +11,4 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/bool.txt	2022-11-16 15:54:07.301341390 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/bool.txt	2022-11-16 15:54:07.305341429 -0500
+@@ -2,112 +2,13 @@
+   push BP
+   i2i SP => BP
+   addI SP, -8 => SP
+-  loadI 1 => r1
+-  storeAI r1 => [BP-8]
+-  loadI 0 => r2
+-  i2i r2 => RET
++  loadI 1 => r0
++  storeAI r0 => [BP-8]
++  loadI 0 => r1
++  i2i r1 => RET
+   jump l0
+ l0:
    i2i BP => SP
    pop BP
    return
@@ -39,38 +52,38 @@
 -other memory:
 -==========================
 -
--Executing: loadI 1 => r0
+-Executing: loadI 1 => r1
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=1
+-virtual regs:  r1=1
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
 -
--Executing: storeAI r0 => [BP-8]
+-Executing: storeAI r1 => [BP-8]
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=1
+-virtual regs:  r1=1
 -stack:  65528: -9999999  65520: 1
 -other memory:
 -==========================
 -
--Executing: loadI 0 => r1
+-Executing: loadI 0 => r2
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=1 r1=0
+-virtual regs:  r1=1 r2=0
 -stack:  65528: -9999999  65520: 1
 -other memory:
 -==========================
 -
--Executing: i2i r1 => RET
+-Executing: i2i r2 => RET
 -
 -==========================
 -sp=65520 bp=65528 ret=0
--virtual regs:  r0=1 r1=0
+-virtual regs:  r1=1 r2=0
 -stack:  65528: -9999999  65520: 1
 -other memory:
 -==========================
@@ -79,7 +92,7 @@
 -
 -==========================
 -sp=65520 bp=65528 ret=0
--virtual regs:  r0=1 r1=0
+-virtual regs:  r1=1 r2=0
 -stack:  65528: -9999999  65520: 1
 -other memory:
 -==========================
@@ -88,7 +101,7 @@
 -
 -==========================
 -sp=65528 bp=65528 ret=0
--virtual regs:  r0=1 r1=0
+-virtual regs:  r1=1 r2=0
 -stack:  65528: -9999999
 -other memory:  65520: 1
 -==========================
@@ -97,7 +110,7 @@
 -
 -==========================
 -sp=65536 bp=-9999999 ret=0
--virtual regs:  r0=1 r1=0
+-virtual regs:  r1=1 r2=0
 -stack:
 -other memory:  65520: 1  65528: -9999999
 -==========================

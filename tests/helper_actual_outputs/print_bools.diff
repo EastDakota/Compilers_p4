@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/print_bools.txt	2022-11-16 15:33:40.353842519 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/print_bools.txt	2022-11-16 15:33:40.357842554 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/print_bools.txt	2022-11-16 15:54:08.057348658 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/print_bools.txt	2022-11-16 15:54:08.061348696 -0500
 @@ -1,7 +1,11 @@
  main:
    push BP

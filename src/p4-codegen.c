@@ -151,8 +151,6 @@ void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
     } 
 }
 void CodeGenVisitor_previsit_assignment(NodeVisitor* visitor, ASTNode* node) {
-    // Figure out which register to load to by making a register
-    // Figure out the offset to send it back to
 }
 void CodeGenVisitor_gen_funcCall(NodeVisitor* visitor, ASTNode* node) {
     EMIT1OP(CALL, call_label(node->funccall.name));
@@ -181,6 +179,10 @@ void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node)
     }
     
 }
+void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
+    Operand var_reg = virtual_register();
+    ASTNode_set_temp_reg(node, var_reg);
+}
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {
     
@@ -194,8 +196,6 @@ void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
 }
 void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node) 
 {
-    // Operand funcreturn_reg = virtual_register();
-    // ASTNode_set_temp_reg(node->funcreturn.value, funcreturn_reg);
 }
 void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -213,14 +213,14 @@ void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node)
 }
 
 void CodeGenVisitor_previsit_vardecl(NodeVisitor* visitor, ASTNode* node) {
-    //Operand var_reg = virtual_register();
-    //ASTNode_set_temp_reg(node, var_reg);
+    // Operand var_reg = virtual_register();
+    // ASTNode_set_temp_reg(node, var_reg);
 }
 
 void CodeGenVisitor_gen_vardecl(NodeVisitor* visitor, ASTNode* node) {
-    Operand var_reg = virtual_register();
-    ASTNode_set_temp_reg(node, var_reg);
+    
 }
+// Local size of each funcdecl
 void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
 {
     /* every function begins with the corresponding call label */
@@ -229,7 +229,7 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(PUSH, DATA->bp);
     EMIT2OP(I2I, DATA->sp, DATA->bp);
     // Figure out the offset of the current function
-    EMIT3OP(ADD_I, DATA->sp, int_const(LOCAL_BP_OFFSET), DATA->sp);
+    EMIT3OP(ADD_I, DATA->sp,int_const(LOCAL_BP_OFFSET), DATA->sp);
     /* copy code from body */
     ASTNode_copy_code(node, node->funcdecl.body);
     EMIT1OP(LABEL, DATA->current_epilogue_jump_label);
@@ -245,10 +245,10 @@ void CodeGenVisitor_previsit_binaryop(NodeVisitor* visitor, ASTNode* node)
 void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node) 
 {
     ASTNode_copy_code(node, node->binaryop.left);
-    Operand left_reg = ASTNode_get_temp_reg(node->binaryop.left);
     ASTNode_copy_code(node, node->binaryop.right);
-    Operand right_reg = ASTNode_get_temp_reg(node->binaryop.right);
     Operand store_reg = virtual_register();
+    Operand left_reg = ASTNode_get_temp_reg(node->binaryop.left);
+    Operand right_reg = ASTNode_get_temp_reg(node->binaryop.right);
     ASTNode_set_temp_reg(node, store_reg);
     switch (node->binaryop.operator)
     {
@@ -337,6 +337,8 @@ InsnList* generate_code (ASTNode* tree)
     // Program
     v->previsit_program     = CodeGenVisitor_previsit_program;
     v->postvisit_program    = CodeGenVisitor_gen_program;
+    // Locations
+    v->postvisit_location   = CodeGenVisitor_gen_location;
     /* generate code into AST attributes */
     NodeVisitor_traverse_and_free(v, tree);
 

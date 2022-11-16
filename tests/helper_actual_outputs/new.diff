@@ -1,19 +1,21 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/new.txt	2022-11-16 15:33:40.233841456 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/new.txt	2022-11-16 15:33:40.241841527 -0500
-@@ -1,89 +1,36 @@
--ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
-+main:
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/new.txt	2022-11-16 15:54:07.933347466 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/new.txt	2022-11-16 15:54:07.937347504 -0500
+@@ -1,146 +1,36 @@
+ main:
    push BP
    i2i SP => BP
 -  addI SP, -8 => SP
 +  addI SP, -24 => SP
-   loadI 2 => r0
-   storeAI r0 => [BP-8]
++  loadI 2 => r0
++  storeAI r0 => [BP-8]
    loadI 2 => r1
-   storeAI r1 => [BP-16]
--  mult r-1, r-1 => r6
--  mult r6, r-1 => r7
--  i2i r7 => RET
+-  storeAI r1 => [BP-8]
+-  loadI 2 => r3
+-  storeAI r3 => [BP-16]
+-  mult r15, r16 => r17
+-  mult r17, r18 => r19
+-  i2i r19 => RET
++  storeAI r1 => [BP-16]
 +  loadAI [BP-8] => r2
 +  loadI 0 => r3
 +  cmp_LT r2, r3 => r4
@@ -76,42 +78,99 @@
 -other memory:
 -==========================
 -
--Executing: loadI 2 => r0
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=2
--stack:  65528: -9999999  65520: 0
--other memory:
--==========================
--
--Executing: storeAI r0 => [BP-8]
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=2
--stack:  65528: -9999999  65520: 2
--other memory:
--==========================
--
 -Executing: loadI 2 => r1
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=2 r1=2
+-virtual regs:  r1=2
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: storeAI r1 => [BP-8]
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r1=2
 -stack:  65528: -9999999  65520: 2
 -other memory:
 -==========================
 -
--Executing: storeAI r1 => [BP-16]
+-Executing: loadI 2 => r3
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=2 r1=2
+-virtual regs:  r1=2 r3=2
+-stack:  65528: -9999999  65520: 2
+-other memory:
+-==========================
+-
+-Executing: storeAI r3 => [BP-16]
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r1=2 r3=2
 -stack:  65528: -9999999  65520: 2
 -other memory:  65512: 2
 -==========================
 -
--Executing: mult r-1, r-1 => r6
--ERROR: Register r-1 does not exist
+-Executing: mult r15, r16 => r17
+-WARNING: Potential uninitialized read from register r15
+-WARNING: Potential uninitialized read from register r16
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r1=2 r3=2 r17=99999980000001
+-stack:  65528: -9999999  65520: 2
+-other memory:  65512: 2
+-==========================
+-
+-Executing: mult r17, r18 => r19
+-WARNING: Potential uninitialized read from register r18
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r1=2 r3=2 r17=99999980000001 r19=-3875520019714212735
+-stack:  65528: -9999999  65520: 2
+-other memory:  65512: 2
+-==========================
+-
+-Executing: i2i r19 => RET
+-
+-==========================
+-sp=65520 bp=65528 ret=-3875520019714212735
+-virtual regs:  r1=2 r3=2 r17=99999980000001 r19=-3875520019714212735
+-stack:  65528: -9999999  65520: 2
+-other memory:  65512: 2
+-==========================
+-
+-Executing: jump l0
+-
+-==========================
+-sp=65520 bp=65528 ret=-3875520019714212735
+-virtual regs:  r1=2 r3=2 r17=99999980000001 r19=-3875520019714212735
+-stack:  65528: -9999999  65520: 2
+-other memory:  65512: 2
+-==========================
+-
+-Executing: i2i BP => SP
+-
+-==========================
+-sp=65528 bp=65528 ret=-3875520019714212735
+-virtual regs:  r1=2 r3=2 r17=99999980000001 r19=-3875520019714212735
+-stack:  65528: -9999999
+-other memory:  65512: 2  65520: 2
+-==========================
+-
+-Executing: pop BP
+-
+-==========================
+-sp=65536 bp=-9999999 ret=-3875520019714212735
+-virtual regs:  r1=2 r3=2 r17=99999980000001 r19=-3875520019714212735
+-stack:
+-other memory:  65512: 2  65520: 2  65528: -9999999
+-==========================
+-
+-Executing: return
+-RETURN VALUE = 1359281281
 +RETURN VALUE = 64
