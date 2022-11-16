@@ -9,5 +9,7 @@ def int main() {
     a = 2 + 3;
     a = a;
     c = a;
+    a = c + 2;
+    b = true || false;
     return 1;
 }

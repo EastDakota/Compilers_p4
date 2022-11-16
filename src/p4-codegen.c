@@ -163,19 +163,23 @@ void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node)
     ASTNode_copy_code(node, node->assignment.value);
     Operand base    = var_base(node, lookup_symbol(node, node->assignment.location->location.name));
     Operand offset  = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
+    Operand load_offset;
+    Operand store_offset;
     switch (node->assignment.value->type)
     {
-    case LITERAL:
-        // Already handled in literal assigning
-        break;
     case LOCATION:
         ASTNode_set_temp_reg(node->assignment.value, virtual_register());
-        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node->assignment.value));
+        ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
+        load_offset  = var_offset(node, lookup_symbol(node, node->assignment.value->location.name));
+        store_offset = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
+        EMIT3OP(LOAD_AI, base, load_offset, ASTNode_get_temp_reg(node->assignment.value));
+        EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.location), base, store_offset);
         break;
     default:
+        EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
         break;
     }
-    EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
+    
 }
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {

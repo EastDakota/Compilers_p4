@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/carter.txt	2022-11-16 15:20:31.134606039 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/carter.txt	2022-11-16 15:20:31.138606078 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/carter.txt	2022-11-16 15:33:39.693836676 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/carter.txt	2022-11-16 15:33:39.697836712 -0500
 @@ -11,103 +11,4 @@
    i2i BP => SP
    pop BP

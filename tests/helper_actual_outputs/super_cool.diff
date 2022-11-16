@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/super_cool.txt	2022-11-16 15:20:32.574620407 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/super_cool.txt	2022-11-16 15:20:32.578620446 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/super_cool.txt	2022-11-16 15:33:41.177849814 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/super_cool.txt	2022-11-16 15:33:41.181849850 -0500
 @@ -1,93 +1,23 @@
 -ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
 +main:

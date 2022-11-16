@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/bool.txt	2022-11-16 15:20:31.042605121 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/bool.txt	2022-11-16 15:20:31.046605160 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/bool.txt	2022-11-16 15:33:39.593835791 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/bool.txt	2022-11-16 15:33:39.601835862 -0500
 @@ -11,103 +11,4 @@
    i2i BP => SP
    pop BP

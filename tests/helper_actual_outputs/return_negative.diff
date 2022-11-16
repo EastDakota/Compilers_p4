@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/return_negative.txt	2022-11-16 15:20:32.174616415 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/return_negative.txt	2022-11-16 15:20:32.178616456 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/return_negative.txt	2022-11-16 15:33:40.765846166 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/return_negative.txt	2022-11-16 15:33:40.769846202 -0500
 @@ -1,7 +1,7 @@
  main:
    push BP
