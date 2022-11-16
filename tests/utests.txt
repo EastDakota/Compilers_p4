@@ -1,8 +1,8 @@
 Running suite(s): Default
-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
+ERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
+ERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
+ERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
 ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
 ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
 ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
 53%: Checks: 13, Failures: 0, Errors: 6

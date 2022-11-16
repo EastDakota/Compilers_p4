@@ -1,12 +1,12 @@
-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
+ERROR: Node is missing a temporary registermain:
   push BP
   i2i SP => BP
   addI SP, -8 => SP
   loadI 6 => r0
-  storeAI r0 => [BP-16]
+  storeAI r0 => [BP-8]
   loadI 4 => r1
   neg r1 => r2
-  storeAI r2 => [BP-16]
+  storeAI r2 => [BP-8]
   loadI 1 => r3
   storeAI r3 => [BP-16]
   loadI 0 => r4
@@ -61,13 +61,13 @@ stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: storeAI r0 => [BP-16]
+Executing: storeAI r0 => [BP-8]
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6
-stack:  65528: -9999999  65520: 0
-other memory:  65512: 6
+stack:  65528: -9999999  65520: 6
+other memory:
 ==========================
 
 Executing: loadI 4 => r1
@@ -75,8 +75,8 @@ Executing: loadI 4 => r1
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4
-stack:  65528: -9999999  65520: 0
-other memory:  65512: 6
+stack:  65528: -9999999  65520: 6
+other memory:
 ==========================
 
 Executing: neg r1 => r2
@@ -84,17 +84,17 @@ Executing: neg r1 => r2
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4 r2=-4
-stack:  65528: -9999999  65520: 0
-other memory:  65512: 6
+stack:  65528: -9999999  65520: 6
+other memory:
 ==========================
 
-Executing: storeAI r2 => [BP-16]
+Executing: storeAI r2 => [BP-8]
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4 r2=-4
-stack:  65528: -9999999  65520: 0
-other memory:  65512: -4
+stack:  65528: -9999999  65520: -4
+other memory:
 ==========================
 
 Executing: loadI 1 => r3
@@ -102,8 +102,8 @@ Executing: loadI 1 => r3
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4 r2=-4 r3=1
-stack:  65528: -9999999  65520: 0
-other memory:  65512: -4
+stack:  65528: -9999999  65520: -4
+other memory:
 ==========================
 
 Executing: storeAI r3 => [BP-16]
@@ -111,7 +111,7 @@ Executing: storeAI r3 => [BP-16]
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4 r2=-4 r3=1
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999  65520: -4
 other memory:  65512: 1
 ==========================
 
@@ -120,7 +120,7 @@ Executing: loadI 0 => r4
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4 r2=-4 r3=1 r4=0
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999  65520: -4
 other memory:  65512: 1
 ==========================
 
@@ -129,7 +129,7 @@ Executing: storeAI r4 => [BP-16]
 ==========================
 sp=65520 bp=65528 ret=-9999999
 virtual regs:  r0=6 r1=4 r2=-4 r3=1 r4=0
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999  65520: -4
 other memory:
 ==========================
 

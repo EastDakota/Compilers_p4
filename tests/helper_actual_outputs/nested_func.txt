@@ -1,16 +1,22 @@
-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
+main:
   push BP
   i2i SP => BP
   addI SP, -8 => SP
   loadI 2 => r0
-  storeAI r0 => [BP-8]
-  loadI 2 => r1
-  storeAI r1 => [BP-16]
-  mult r-1, r-1 => r6
-  mult r6, r-1 => r7
-  i2i r7 => RET
+  i2i r0 => RET
   jump l0
 l0:
+  i2i BP => SP
+  pop BP
+  return
+foo:
+  push BP
+  i2i SP => BP
+  addI SP, -8 => SP
+  loadI 2 => r1
+  i2i r1 => RET
+  jump l1
+l1:
   i2i BP => SP
   pop BP
   return
@@ -58,32 +64,41 @@ stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: storeAI r0 => [BP-8]
+Executing: i2i r0 => RET
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
+sp=65520 bp=65528 ret=2
 virtual regs:  r0=2
-stack:  65528: -9999999  65520: 2
+stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: loadI 2 => r1
+Executing: jump l0
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=2 r1=2
-stack:  65528: -9999999  65520: 2
+sp=65520 bp=65528 ret=2
+virtual regs:  r0=2
+stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: storeAI r1 => [BP-16]
+Executing: i2i BP => SP
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=2 r1=2
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
+sp=65528 bp=65528 ret=2
+virtual regs:  r0=2
+stack:  65528: -9999999
+other memory:
 ==========================
 
-Executing: mult r-1, r-1 => r6
-ERROR: Register r-1 does not exist
+Executing: pop BP
+
+==========================
+sp=65536 bp=-9999999 ret=2
+virtual regs:  r0=2
+stack:
+other memory:  65528: -9999999
+==========================
+
+Executing: return
+RETURN VALUE = 2

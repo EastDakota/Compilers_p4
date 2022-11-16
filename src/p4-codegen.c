@@ -18,6 +18,7 @@ typedef struct CodeGenData
     Operand current_epilogue_jump_label;
     Operand bp;
     Operand sp;
+    int depth;
     /* add any new desired state information (and clean it up in CodeGenData_free) */
 } CodeGenData;
 
@@ -130,7 +131,6 @@ void CodeGenVisitor_gen_program (NodeVisitor* visitor, ASTNode* node)
     }
 }
 void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
-    //TODO handle non-integer literals
     DecafType literal_type = node->literal.type;
     Operand reg = virtual_register();
     ASTNode_set_temp_reg(node, reg);
@@ -154,32 +154,28 @@ void CodeGenVisitor_previsit_assignment(NodeVisitor* visitor, ASTNode* node) {
     // Figure out which register to load to by making a register
     // Figure out the offset to send it back to
 }
-
+void CodeGenVisitor_gen_funcCall(NodeVisitor* visitor, ASTNode* node) {
+    EMIT1OP(CALL, call_label(node->funccall.name));
+}
 void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
 {
     ASTNode_copy_code(node, node->assignment.location);
     ASTNode_copy_code(node, node->assignment.value);
-    DecafType literal_type = node->assignment.location->type;
-    Operand loc_op = ASTNode_get_temp_reg(node->assignment.location);
-    EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), DATA->bp, int_const(LOCAL_BP_OFFSET));
-    switch (literal_type)
+    Operand base    = var_base(node, lookup_symbol(node, node->assignment.location->location.name));
+    Operand offset  = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
+    switch (node->assignment.value->type)
     {
-    case INT:
-        EMIT2OP(LOAD_I, int_const(node->literal.integer), loc_op);
-        EMIT2OP(STORE_AI, int_const(node->literal.integer), loc_op);
+    case LITERAL:
+        // Already handled in literal assigning
         break;
-    case BOOL:
-        if(node->literal.boolean) {
-            EMIT2OP(LOAD_I, TRUE, loc_op);
-            EMIT2OP(STORE_AI, loc_op, TRUE);
-        } else {
-            EMIT2OP(LOAD_I, FALSE, loc_op);
-            EMIT2OP(STORE_AI, loc_op, FALSE);
-        }
+    case LOCATION:
+        ASTNode_set_temp_reg(node->assignment.value, virtual_register());
+        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node->assignment.value));
         break;
     default:
         break;
     }
+    EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
 }
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -220,7 +216,6 @@ void CodeGenVisitor_previsit_vardecl(NodeVisitor* visitor, ASTNode* node) {
 void CodeGenVisitor_gen_vardecl(NodeVisitor* visitor, ASTNode* node) {
     Operand var_reg = virtual_register();
     ASTNode_set_temp_reg(node, var_reg);
-    ASTNode_set_int_attribute(node, "var_offset", LOCAL_BP_OFFSET);
 }
 void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
 {

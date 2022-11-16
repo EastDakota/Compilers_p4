@@ -1,0 +1,253 @@
+main:
+  push BP
+  i2i SP => BP
+  addI SP, -8 => SP
+  loadI 2 => r0
+  storeAI r0 => [BP-8]
+  loadI 1 => r1
+  storeAI r1 => [BP-24]
+  loadI 0 => r2
+  storeAI r2 => [BP-24]
+  loadI 3 => r3
+  storeAI r3 => [BP-8]
+  loadI 2 => r4
+  loadI 3 => r5
+  add r4, r5 => r6
+  storeAI r6 => [BP-8]
+  loadAI [BP-8] => r7
+  storeAI r7 => [BP-8]
+  loadAI [BP-16] => r8
+  storeAI r8 => [BP-16]
+  loadI 1 => r9
+  i2i r9 => RET
+  jump l0
+l0:
+  i2i BP => SP
+  pop BP
+  return
+
+==========================
+sp=65536 bp=-9999999 ret=-9999999
+virtual regs: 
+stack:
+other memory:
+==========================
+
+Executing: push BP
+
+==========================
+sp=65528 bp=-9999999 ret=-9999999
+virtual regs: 
+stack:  65528: -9999999
+other memory:
+==========================
+
+Executing: i2i SP => BP
+
+==========================
+sp=65528 bp=65528 ret=-9999999
+virtual regs: 
+stack:  65528: -9999999
+other memory:
+==========================
+
+Executing: addI SP, -8 => SP
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs: 
+stack:  65528: -9999999  65520: 0
+other memory:
+==========================
+
+Executing: loadI 2 => r0
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2
+stack:  65528: -9999999  65520: 0
+other memory:
+==========================
+
+Executing: storeAI r0 => [BP-8]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2
+stack:  65528: -9999999  65520: 2
+other memory:
+==========================
+
+Executing: loadI 1 => r1
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1
+stack:  65528: -9999999  65520: 2
+other memory:
+==========================
+
+Executing: storeAI r1 => [BP-24]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1
+stack:  65528: -9999999  65520: 2
+other memory:  65504: 1
+==========================
+
+Executing: loadI 0 => r2
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0
+stack:  65528: -9999999  65520: 2
+other memory:  65504: 1
+==========================
+
+Executing: storeAI r2 => [BP-24]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0
+stack:  65528: -9999999  65520: 2
+other memory:
+==========================
+
+Executing: loadI 3 => r3
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3
+stack:  65528: -9999999  65520: 2
+other memory:
+==========================
+
+Executing: storeAI r3 => [BP-8]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3
+stack:  65528: -9999999  65520: 3
+other memory:
+==========================
+
+Executing: loadI 2 => r4
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2
+stack:  65528: -9999999  65520: 3
+other memory:
+==========================
+
+Executing: loadI 3 => r5
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3
+stack:  65528: -9999999  65520: 3
+other memory:
+==========================
+
+Executing: add r4, r5 => r6
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5
+stack:  65528: -9999999  65520: 3
+other memory:
+==========================
+
+Executing: storeAI r6 => [BP-8]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: loadAI [BP-8] => r7
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: storeAI r7 => [BP-8]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: loadAI [BP-16] => r8
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: storeAI r8 => [BP-16]
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: loadI 1 => r9
+
+==========================
+sp=65520 bp=65528 ret=-9999999
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0 r9=1
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: i2i r9 => RET
+
+==========================
+sp=65520 bp=65528 ret=1
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0 r9=1
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: jump l0
+
+==========================
+sp=65520 bp=65528 ret=1
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0 r9=1
+stack:  65528: -9999999  65520: 5
+other memory:
+==========================
+
+Executing: i2i BP => SP
+
+==========================
+sp=65528 bp=65528 ret=1
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0 r9=1
+stack:  65528: -9999999
+other memory:  65520: 5
+==========================
+
+Executing: pop BP
+
+==========================
+sp=65536 bp=-9999999 ret=1
+virtual regs:  r0=2 r1=1 r2=0 r3=3 r4=2 r5=3 r6=5 r7=5 r8=0 r9=1
+stack:
+other memory:  65520: 5  65528: -9999999
+==========================
+
+Executing: return
+RETURN VALUE = 1

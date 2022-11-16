@@ -1,17 +1,106 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/carter.txt	2022-11-14 17:22:01.188085949 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/carter.txt	2022-11-14 17:22:01.388087951 -0500
-@@ -0,0 +1,14 @@
-+main:
-+  push BP
-+  i2i SP => BP
-+  addI SP, -8 => SP
-+  loadI 6 => r0
-+  storeAI r0 => [BP-8]
-+  loadI 9 => r1
-+  i2i r1 => RET
-+  jump l0
-+l0:
-+  i2i BP => SP
-+  pop BP
-+  return
-+RETURN VALUE = 9
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/carter.txt	2022-11-16 15:20:31.134606039 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/carter.txt	2022-11-16 15:20:31.138606078 -0500
+@@ -11,103 +11,4 @@
+   i2i BP => SP
+   pop BP
+   return
+-
+-==========================
+-sp=65536 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:
+-other memory:
+-==========================
+-
+-Executing: push BP
+-
+-==========================
+-sp=65528 bp=-9999999 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: i2i SP => BP
+-
+-==========================
+-sp=65528 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999
+-other memory:
+-==========================
+-
+-Executing: addI SP, -8 => SP
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs: 
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: loadI 6 => r0
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=6
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: storeAI r0 => [BP-8]
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=6
+-stack:  65528: -9999999  65520: 6
+-other memory:
+-==========================
+-
+-Executing: loadI 9 => r1
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=6 r1=9
+-stack:  65528: -9999999  65520: 6
+-other memory:
+-==========================
+-
+-Executing: i2i r1 => RET
+-
+-==========================
+-sp=65520 bp=65528 ret=9
+-virtual regs:  r0=6 r1=9
+-stack:  65528: -9999999  65520: 6
+-other memory:
+-==========================
+-
+-Executing: jump l0
+-
+-==========================
+-sp=65520 bp=65528 ret=9
+-virtual regs:  r0=6 r1=9
+-stack:  65528: -9999999  65520: 6
+-other memory:
+-==========================
+-
+-Executing: i2i BP => SP
+-
+-==========================
+-sp=65528 bp=65528 ret=9
+-virtual regs:  r0=6 r1=9
+-stack:  65528: -9999999
+-other memory:  65520: 6
+-==========================
+-
+-Executing: pop BP
+-
+-==========================
+-sp=65536 bp=-9999999 ret=9
+-virtual regs:  r0=6 r1=9
+-stack:
+-other memory:  65520: 6  65528: -9999999
+-==========================
+-
+-Executing: return
+ RETURN VALUE = 9

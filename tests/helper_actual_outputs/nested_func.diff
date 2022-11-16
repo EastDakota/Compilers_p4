@@ -1,17 +1,33 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/print_int.txt	2022-11-16 15:20:31.874613422 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/print_int.txt	2022-11-16 15:20:31.878613462 -0500
-@@ -1,7 +1,9 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/nested_func.txt	2022-11-16 15:20:31.378608473 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/nested_func.txt	2022-11-16 15:20:31.378608473 -0500
+@@ -1,9 +1,12 @@
  main:
    push BP
    i2i SP => BP
 -  addI SP, -8 => SP
+-  loadI 2 => r0
+-  i2i r0 => RET
 +  addI SP, 0 => SP
-+  loadI 7 => r0
-+  print r0
-   loadI 0 => r1
-   i2i r1 => RET
++  call foo
++  addI SP, 0 => SP
++  i2i RET => r0
++  loadI 2 => r1
++  i2i r1 => RET
    jump l0
-@@ -9,85 +11,4 @@
+ l0:
+   i2i BP => SP
+@@ -12,93 +15,12 @@
+ foo:
+   push BP
+   i2i SP => BP
+-  addI SP, -8 => SP
+-  loadI 2 => r1
+-  i2i r1 => RET
++  addI SP, 0 => SP
++  loadI 2 => r2
++  i2i r2 => RET
+   jump l1
+ l1:
    i2i BP => SP
    pop BP
    return
@@ -50,20 +66,20 @@
 -other memory:
 -==========================
 -
--Executing: loadI 0 => r1
+-Executing: loadI 2 => r0
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r1=0
+-virtual regs:  r0=2
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
 -
--Executing: i2i r1 => RET
+-Executing: i2i r0 => RET
 -
 -==========================
--sp=65520 bp=65528 ret=0
--virtual regs:  r1=0
+-sp=65520 bp=65528 ret=2
+-virtual regs:  r0=2
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
@@ -71,8 +87,8 @@
 -Executing: jump l0
 -
 -==========================
--sp=65520 bp=65528 ret=0
--virtual regs:  r1=0
+-sp=65520 bp=65528 ret=2
+-virtual regs:  r0=2
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
@@ -80,8 +96,8 @@
 -Executing: i2i BP => SP
 -
 -==========================
--sp=65528 bp=65528 ret=0
--virtual regs:  r1=0
+-sp=65528 bp=65528 ret=2
+-virtual regs:  r0=2
 -stack:  65528: -9999999
 -other memory:
 -==========================
@@ -89,12 +105,11 @@
 -Executing: pop BP
 -
 -==========================
--sp=65536 bp=-9999999 ret=0
--virtual regs:  r1=0
+-sp=65536 bp=-9999999 ret=2
+-virtual regs:  r0=2
 -stack:
 -other memory:  65528: -9999999
 -==========================
 -
 -Executing: return
--RETURN VALUE = 0
-+7RETURN VALUE = 0
+ RETURN VALUE = 2
