@@ -13,5 +13,5 @@ def int main() {
     //a = c + 2;
     //b = true || false;
     d = a + c;
-    return 1;
+    return a;
 }

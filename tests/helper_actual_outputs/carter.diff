@@ -1,19 +1,6 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/carter.txt	2022-11-16 15:54:07.397342313 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/carter.txt	2022-11-16 15:54:07.405342391 -0500
-@@ -2,112 +2,13 @@
-   push BP
-   i2i SP => BP
-   addI SP, -8 => SP
--  loadI 6 => r1
--  storeAI r1 => [BP-8]
--  loadI 9 => r2
--  i2i r2 => RET
-+  loadI 6 => r0
-+  storeAI r0 => [BP-8]
-+  loadI 9 => r1
-+  i2i r1 => RET
-   jump l0
- l0:
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/carter.txt	2022-11-16 20:49:20.405599444 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/carter.txt	2022-11-16 20:49:20.413599520 -0500
+@@ -11,103 +11,4 @@
    i2i BP => SP
    pop BP
    return
@@ -52,38 +39,38 @@
 -other memory:
 -==========================
 -
--Executing: loadI 6 => r1
+-Executing: loadI 6 => r0
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r1=6
+-virtual regs:  r0=6
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
 -
--Executing: storeAI r1 => [BP-8]
+-Executing: storeAI r0 => [BP-8]
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r1=6
+-virtual regs:  r0=6
 -stack:  65528: -9999999  65520: 6
 -other memory:
 -==========================
 -
--Executing: loadI 9 => r2
+-Executing: loadI 9 => r1
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r1=6 r2=9
+-virtual regs:  r0=6 r1=9
 -stack:  65528: -9999999  65520: 6
 -other memory:
 -==========================
 -
--Executing: i2i r2 => RET
+-Executing: i2i r1 => RET
 -
 -==========================
 -sp=65520 bp=65528 ret=9
--virtual regs:  r1=6 r2=9
+-virtual regs:  r0=6 r1=9
 -stack:  65528: -9999999  65520: 6
 -other memory:
 -==========================
@@ -92,7 +79,7 @@
 -
 -==========================
 -sp=65520 bp=65528 ret=9
--virtual regs:  r1=6 r2=9
+-virtual regs:  r0=6 r1=9
 -stack:  65528: -9999999  65520: 6
 -other memory:
 -==========================
@@ -101,7 +88,7 @@
 -
 -==========================
 -sp=65528 bp=65528 ret=9
--virtual regs:  r1=6 r2=9
+-virtual regs:  r0=6 r1=9
 -stack:  65528: -9999999
 -other memory:  65520: 6
 -==========================
@@ -110,7 +97,7 @@
 -
 -==========================
 -sp=65536 bp=-9999999 ret=9
--virtual regs:  r1=6 r2=9
+-virtual regs:  r0=6 r1=9
 -stack:
 -other memory:  65520: 6  65528: -9999999
 -==========================

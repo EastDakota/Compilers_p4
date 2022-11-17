@@ -2,14 +2,14 @@ main:
   push BP
   i2i SP => BP
   addI SP, -8 => SP
-  loadI 2 => r1
-  loadI 256 => r2
-  storeAI r1 => [r2+0]
-  loadI 0 => r4
-  loadI 264 => r5
-  storeAI r4 => [r5+0]
-  loadI 3 => r6
-  i2i r6 => RET
+  loadI 2 => r0
+  loadI 256 => r1
+  storeAI r0 => [r1+0]
+  loadI 0 => r2
+  loadI 264 => r3
+  storeAI r2 => [r3+0]
+  loadI 3 => r4
+  i2i r4 => RET
   jump l0
 l0:
   i2i BP => SP
@@ -50,74 +50,74 @@ stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: loadI 2 => r1
+Executing: loadI 2 => r0
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2
+virtual regs:  r0=2
 stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: loadI 256 => r2
+Executing: loadI 256 => r1
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2 r2=256
+virtual regs:  r0=2 r1=256
 stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: storeAI r1 => [r2+0]
+Executing: storeAI r0 => [r1+0]
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2 r2=256
+virtual regs:  r0=2 r1=256
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
 
-Executing: loadI 0 => r4
+Executing: loadI 0 => r2
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2 r2=256 r4=0
+virtual regs:  r0=2 r1=256 r2=0
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
 
-Executing: loadI 264 => r5
+Executing: loadI 264 => r3
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2 r2=256 r4=0 r5=264
+virtual regs:  r0=2 r1=256 r2=0 r3=264
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
 
-Executing: storeAI r4 => [r5+0]
+Executing: storeAI r2 => [r3+0]
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2 r2=256 r4=0 r5=264
+virtual regs:  r0=2 r1=256 r2=0 r3=264
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
 
-Executing: loadI 3 => r6
+Executing: loadI 3 => r4
 
 ==========================
 sp=65520 bp=65528 ret=-9999999
-virtual regs:  r1=2 r2=256 r4=0 r5=264 r6=3
+virtual regs:  r0=2 r1=256 r2=0 r3=264 r4=3
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
 
-Executing: i2i r6 => RET
+Executing: i2i r4 => RET
 
 ==========================
 sp=65520 bp=65528 ret=3
-virtual regs:  r1=2 r2=256 r4=0 r5=264 r6=3
+virtual regs:  r0=2 r1=256 r2=0 r3=264 r4=3
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
@@ -126,7 +126,7 @@ Executing: jump l0
 
 ==========================
 sp=65520 bp=65528 ret=3
-virtual regs:  r1=2 r2=256 r4=0 r5=264 r6=3
+virtual regs:  r0=2 r1=256 r2=0 r3=264 r4=3
 stack:  65528: -9999999  65520: 0
 other memory:  256: 2
 ==========================
@@ -135,7 +135,7 @@ Executing: i2i BP => SP
 
 ==========================
 sp=65528 bp=65528 ret=3
-virtual regs:  r1=2 r2=256 r4=0 r5=264 r6=3
+virtual regs:  r0=2 r1=256 r2=0 r3=264 r4=3
 stack:  65528: -9999999
 other memory:  256: 2
 ==========================
@@ -144,7 +144,7 @@ Executing: pop BP
 
 ==========================
 sp=65536 bp=-9999999 ret=3
-virtual regs:  r1=2 r2=256 r4=0 r5=264 r6=3
+virtual regs:  r0=2 r1=256 r2=0 r3=264 r4=3
 stack:
 other memory:  256: 2  65528: -9999999
 ==========================

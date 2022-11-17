@@ -157,9 +157,9 @@ void CodeGenVisitor_gen_funcCall(NodeVisitor* visitor, ASTNode* node) {
 }
 void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
 {
-    ASTNode_copy_code(node, node->assignment.location);
     ASTNode_copy_code(node, node->assignment.value);
-    Operand base    = var_base(node, lookup_symbol(node, node->assignment.location->location.name));
+    ASTNode_copy_code(node, node->assignment.location);
+    Operand base    = var_base  (node, lookup_symbol(node, node->assignment.location->location.name));
     Operand offset  = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
     Operand load_offset;
     Operand store_offset;
@@ -179,9 +179,12 @@ void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node)
     }
     
 }
-void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
+void CodeGenVisitor_previsit_location(NodeVisitor* visitor, ASTNode* node) {
     Operand var_reg = virtual_register();
     ASTNode_set_temp_reg(node, var_reg);
+}
+void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
+    
 }
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -213,8 +216,7 @@ void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node)
 }
 
 void CodeGenVisitor_previsit_vardecl(NodeVisitor* visitor, ASTNode* node) {
-    // Operand var_reg = virtual_register();
-    // ASTNode_set_temp_reg(node, var_reg);
+    
 }
 
 void CodeGenVisitor_gen_vardecl(NodeVisitor* visitor, ASTNode* node) {
@@ -229,7 +231,7 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(PUSH, DATA->bp);
     EMIT2OP(I2I, DATA->sp, DATA->bp);
     // Figure out the offset of the current function
-    EMIT3OP(ADD_I, DATA->sp,int_const(LOCAL_BP_OFFSET), DATA->sp);
+    EMIT3OP(ADD_I, DATA->sp, int_const(LOCAL_BP_OFFSET), DATA->sp);
     /* copy code from body */
     ASTNode_copy_code(node, node->funcdecl.body);
     EMIT1OP(LABEL, DATA->current_epilogue_jump_label);
