@@ -1,15 +1,16 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/joselyne.txt	2022-11-18 11:53:25.674762032 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/joselyne.txt	2022-11-18 11:53:25.678762069 -0500
-@@ -1,113 +1,26 @@
--ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
-+main:
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/joselyne.txt	2022-11-18 14:28:08.991938455 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/joselyne.txt	2022-11-18 14:28:08.995938490 -0500
+@@ -2,122 +2,25 @@
    push BP
    i2i SP => BP
    addI SP, -8 => SP
-   loadI 3 => r0
-   storeAI r0 => [BP-8]
--  loadI 9 => r5
--  i2i r5 => RET
+-  loadI 3 => r1
+-  loadAI [BP-8] => r0
+-  storeAI r1 => [BP-8]
+-  loadI 9 => r9
+-  i2i r9 => RET
++  loadI 3 => r0
++  storeAI r0 => [BP-8]
 +l1:
 +  loadAI [BP-8] => r1
 +  loadI 5 => r2
@@ -64,38 +65,47 @@
 -other memory:
 -==========================
 -
--Executing: loadI 3 => r0
+-Executing: loadI 3 => r1
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=3
+-virtual regs:  r1=3
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
 -
--Executing: storeAI r0 => [BP-8]
+-Executing: loadAI [BP-8] => r0
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=3
+-virtual regs:  r0=0 r1=3
+-stack:  65528: -9999999  65520: 0
+-other memory:
+-==========================
+-
+-Executing: storeAI r1 => [BP-8]
+-
+-==========================
+-sp=65520 bp=65528 ret=-9999999
+-virtual regs:  r0=0 r1=3
 -stack:  65528: -9999999  65520: 3
 -other memory:
 -==========================
 -
--Executing: loadI 9 => r5
+-Executing: loadI 9 => r9
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=3 r5=9
+-virtual regs:  r0=0 r1=3 r9=9
 -stack:  65528: -9999999  65520: 3
 -other memory:
 -==========================
 -
--Executing: i2i r5 => RET
+-Executing: i2i r9 => RET
 -
 -==========================
 -sp=65520 bp=65528 ret=9
--virtual regs:  r0=3 r5=9
+-virtual regs:  r0=0 r1=3 r9=9
 -stack:  65528: -9999999  65520: 3
 -other memory:
 -==========================
@@ -104,7 +114,7 @@
 -
 -==========================
 -sp=65520 bp=65528 ret=9
--virtual regs:  r0=3 r5=9
+-virtual regs:  r0=0 r1=3 r9=9
 -stack:  65528: -9999999  65520: 3
 -other memory:
 -==========================
@@ -113,7 +123,7 @@
 -
 -==========================
 -sp=65528 bp=65528 ret=9
--virtual regs:  r0=3 r5=9
+-virtual regs:  r0=0 r1=3 r9=9
 -stack:  65528: -9999999
 -other memory:  65520: 3
 -==========================
@@ -122,7 +132,7 @@
 -
 -==========================
 -sp=65536 bp=-9999999 ret=9
--virtual regs:  r0=3 r5=9
+-virtual regs:  r0=0 r1=3 r9=9
 -stack:
 -other memory:  65520: 3  65528: -9999999
 -==========================

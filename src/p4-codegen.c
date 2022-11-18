@@ -161,32 +161,28 @@ void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node)
     ASTNode_copy_code(node, node->assignment.location);
     Operand base    = var_base  (node, lookup_symbol(node, node->assignment.location->location.name));
     Operand offset  = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
-    Operand load_offset;
-    Operand store_offset;
-    switch (node->assignment.value->type)
-    {
-    case LOCATION:
-        ASTNode_set_temp_reg(node->assignment.value, virtual_register());
-        ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
-        load_offset  = var_offset(node, lookup_symbol(node, node->assignment.value->location.name));
-        store_offset = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
-        EMIT3OP(LOAD_AI, base, load_offset, ASTNode_get_temp_reg(node->assignment.value));
-        EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.location), base, store_offset);
-        break;
-    case BINARYOP:
-        ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
-        EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
-        break;
-    default:
-        EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
-        break;
-    }
+    //ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
+    EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
 }
 void CodeGenVisitor_previsit_location(NodeVisitor* visitor, ASTNode* node) {
     
 }
 void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
-    
+    Symbol* var_symbol = lookup_symbol(node, node->location.name);
+    Operand base    = var_base  (node, var_symbol);
+    Operand offset  = var_offset(node, var_symbol);
+    switch (var_symbol->type)
+    {
+    case STATIC_VAR: ASTNode_set_temp_reg(node, virtual_register());
+        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node)); break;
+    case STACK_LOCAL: 
+        ASTNode_set_temp_reg(node, virtual_register());
+        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node)); break;
+    case STACK_PARAM:
+    default:
+        
+        break;
+    }
 }
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {
@@ -207,25 +203,8 @@ void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node)
 void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) 
 {
     ASTNode_copy_code(node, node->funcreturn.value);
-    Operand return_reg;
-    switch (node->funcreturn.value->type)
-    {
-        case LITERAL:
-            return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
-            EMIT2OP(I2I, return_reg, return_register());
-            break;
-        case LOCATION:
-            return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
-            Operand base = var_base(node, lookup_symbol(node, node->funcreturn.value->location.name));
-            Operand offset = var_offset(node, lookup_symbol(node, node->funcreturn.value->location.name));
-            EMIT3OP(LOAD_AI, base, offset, return_reg);
-            EMIT2OP(I2I, return_reg, return_register());
-            break;
-        default:
-            return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
-            EMIT2OP(I2I, return_reg, return_register());
-        break;
-    }
+    Operand return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
+    EMIT2OP(I2I, return_reg, return_register());
 }
 
 void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node) 

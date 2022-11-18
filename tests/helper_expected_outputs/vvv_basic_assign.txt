@@ -22,16 +22,8 @@ main:
   loadI 2 => r10
   add r9, r10 => r11
   storeAI r11 => [BP-8]
-  loadI 1 => r12
-  loadI 0 => r13
-  or r12, r13 => r14
-  storeAI r14 => [BP-32]
-  loadAI [BP-8] => r15
-  loadAI [BP-16] => r16
-  add r15, r16 => r17
-  storeAI r17 => [BP-24]
-  loadAI [BP-8] => r18
-  i2i r18 => RET
+  loadAI [BP-8] => r12
+  i2i r12 => RET
   jump l0
 l0:
   i2i BP => SP
