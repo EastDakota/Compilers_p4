@@ -1,6 +1,22 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/bool.txt	2022-11-18 14:28:08.735936167 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/bool.txt	2022-11-18 14:28:08.739936202 -0500
-@@ -11,103 +11,4 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/bool.txt	2022-11-18 16:10:17.044994823 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/bool.txt	2022-11-18 16:10:17.048994858 -0500
+@@ -1,60 +1,14 @@
+-ERROR: Node is missing a temporary registermain:
++main:
+   push BP
+   i2i SP => BP
+   addI SP, -8 => SP
+-  loadI 1 => r1
+-  loadAI [BP-8] => r-1
+-  storeAI r1 => [BP-8]
+-  loadI 0 => r2
+-  i2i r2 => RET
++  loadI 1 => r0
++  storeAI r0 => [BP-8]
++  loadI 0 => r1
++  i2i r1 => RET
+   jump l0
+ l0:
    i2i BP => SP
    pop BP
    return
@@ -39,68 +55,15 @@
 -other memory:
 -==========================
 -
--Executing: loadI 1 => r0
+-Executing: loadI 1 => r1
 -
 -==========================
 -sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=1
+-virtual regs:  r1=1
 -stack:  65528: -9999999  65520: 0
 -other memory:
 -==========================
 -
--Executing: storeAI r0 => [BP-8]
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=1
--stack:  65528: -9999999  65520: 1
--other memory:
--==========================
--
--Executing: loadI 0 => r1
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=1 r1=0
--stack:  65528: -9999999  65520: 1
--other memory:
--==========================
--
--Executing: i2i r1 => RET
--
--==========================
--sp=65520 bp=65528 ret=0
--virtual regs:  r0=1 r1=0
--stack:  65528: -9999999  65520: 1
--other memory:
--==========================
--
--Executing: jump l0
--
--==========================
--sp=65520 bp=65528 ret=0
--virtual regs:  r0=1 r1=0
--stack:  65528: -9999999  65520: 1
--other memory:
--==========================
--
--Executing: i2i BP => SP
--
--==========================
--sp=65528 bp=65528 ret=0
--virtual regs:  r0=1 r1=0
--stack:  65528: -9999999
--other memory:  65520: 1
--==========================
--
--Executing: pop BP
--
--==========================
--sp=65536 bp=-9999999 ret=0
--virtual regs:  r0=1 r1=0
--stack:
--other memory:  65520: 1  65528: -9999999
--==========================
--
--Executing: return
- RETURN VALUE = 0
+-Executing: loadAI [BP-8] => r-1
+-ERROR: Register r-1 does not exist
++RETURN VALUE = 0

@@ -1,0 +1,33 @@
+main:
+  push BP
+  i2i SP => BP
+  addI SP, 0 => SP
+l0:
+  i2i BP => SP
+  pop BP
+  return
+foo:
+  push BP
+  i2i SP => BP
+  addI SP, 0 => SP
+l1:
+  i2i BP => SP
+  pop BP
+  return
+bar:
+  push BP
+  i2i SP => BP
+  addI SP, 0 => SP
+l2:
+  i2i BP => SP
+  pop BP
+  return
+baz:
+  push BP
+  i2i SP => BP
+  addI SP, 0 => SP
+l3:
+  i2i BP => SP
+  pop BP
+  return
+RETURN VALUE = -9999999

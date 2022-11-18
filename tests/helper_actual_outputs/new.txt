@@ -1,17 +1,17 @@
-main:
+ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
   push BP
   i2i SP => BP
-  addI SP, -8 => SP
+  addI SP, -24 => SP
   loadI 2 => r1
-  loadAI [BP-8] => r0
+  loadAI [BP-8] => r-1
   storeAI r1 => [BP-8]
   loadI 2 => r3
-  loadAI [BP-16] => r2
+  loadAI [BP-16] => r-1
   storeAI r3 => [BP-16]
-  loadAI [BP-24] => r15
-  loadAI [BP-24] => r16
+  loadAI [BP-24] => r-1
+  loadAI [BP-24] => r-1
   mult r15, r16 => r17
-  loadAI [BP-24] => r18
+  loadAI [BP-24] => r-1
   mult r17, r18 => r19
   i2i r19 => RET
   jump l0
@@ -45,149 +45,23 @@ stack:  65528: -9999999
 other memory:
 ==========================
 
-Executing: addI SP, -8 => SP
+Executing: addI SP, -24 => SP
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
+sp=65504 bp=65528 ret=-9999999
 virtual regs: 
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999  65520: 0  65512: 0  65504: 0
 other memory:
 ==========================
 
 Executing: loadI 2 => r1
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
+sp=65504 bp=65528 ret=-9999999
 virtual regs:  r1=2
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999  65520: 0  65512: 0  65504: 0
 other memory:
 ==========================
 
-Executing: loadAI [BP-8] => r0
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2
-stack:  65528: -9999999  65520: 0
-other memory:
-==========================
-
-Executing: storeAI r1 => [BP-8]
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2
-stack:  65528: -9999999  65520: 2
-other memory:
-==========================
-
-Executing: loadI 2 => r3
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r3=2
-stack:  65528: -9999999  65520: 2
-other memory:
-==========================
-
-Executing: loadAI [BP-16] => r2
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2
-stack:  65528: -9999999  65520: 2
-other memory:
-==========================
-
-Executing: storeAI r3 => [BP-16]
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: loadAI [BP-24] => r15
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: loadAI [BP-24] => r16
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: mult r15, r16 => r17
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: loadAI [BP-24] => r18
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0 r18=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: mult r17, r18 => r19
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0 r18=0 r19=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: i2i r19 => RET
-
-==========================
-sp=65520 bp=65528 ret=0
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0 r18=0 r19=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: jump l0
-
-==========================
-sp=65520 bp=65528 ret=0
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0 r18=0 r19=0
-stack:  65528: -9999999  65520: 2
-other memory:  65512: 2
-==========================
-
-Executing: i2i BP => SP
-
-==========================
-sp=65528 bp=65528 ret=0
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0 r18=0 r19=0
-stack:  65528: -9999999
-other memory:  65512: 2  65520: 2
-==========================
-
-Executing: pop BP
-
-==========================
-sp=65536 bp=-9999999 ret=0
-virtual regs:  r0=0 r1=2 r2=0 r3=2 r15=0 r16=0 r17=0 r18=0 r19=0
-stack:
-other memory:  65512: 2  65520: 2  65528: -9999999
-==========================
-
-Executing: return
-RETURN VALUE = 0
+Executing: loadAI [BP-8] => r-1
+ERROR: Register r-1 does not exist

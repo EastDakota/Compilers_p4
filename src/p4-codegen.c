@@ -133,61 +133,54 @@ void CodeGenVisitor_gen_program (NodeVisitor* visitor, ASTNode* node)
 void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
     DecafType literal_type = node->literal.type;
     Operand reg = virtual_register();
+    // Swtiches on the literal type from the node
     switch (literal_type)
     {
-    case INT:
-        EMIT2OP(LOAD_I, int_const(node->literal.integer), reg);
-        break;
-    case BOOL:
-        if(node->literal.boolean) {
-            EMIT2OP(LOAD_I, TRUE, reg);
-        } else {
-            EMIT2OP(LOAD_I, FALSE, reg);
-        }
-        break;
-    default:
-        break;
+        case INT:
+            // In the case that it is int, load int value
+            EMIT2OP(LOAD_I, int_const(node->literal.integer), reg);
+            break;
+        case BOOL:
+            // In the case that the type is bool
+            // Is the bool true or false?
+            if(node->literal.boolean)   { EMIT2OP(LOAD_I, TRUE, reg); } 
+            else                        { EMIT2OP(LOAD_I, FALSE, reg); }
+        default: break;
     } 
     ASTNode_set_temp_reg(node, reg);
 }
-void CodeGenVisitor_previsit_assignment(NodeVisitor* visitor, ASTNode* node) {
-}
+// Creates a call label for the function that is to be called
 void CodeGenVisitor_gen_funcCall(NodeVisitor* visitor, ASTNode* node) {
     EMIT1OP(CALL, call_label(node->funccall.name));
 }
 void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node) 
 {
+    //Copies over code from both sides of the equals sign
     ASTNode_copy_code(node, node->assignment.value);
     ASTNode_copy_code(node, node->assignment.location);
+    // Calculates the base and offset for storing
     Operand base    = var_base  (node, lookup_symbol(node, node->assignment.location->location.name));
     Operand offset  = var_offset(node, lookup_symbol(node, node->assignment.location->location.name));
-    //ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
     EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
-}
-void CodeGenVisitor_previsit_location(NodeVisitor* visitor, ASTNode* node) {
-    
+    ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
 }
 void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
     Symbol* var_symbol = lookup_symbol(node, node->location.name);
     Operand base    = var_base  (node, var_symbol);
     Operand offset  = var_offset(node, var_symbol);
-    switch (var_symbol->type)
+    switch (var_symbol->location)
     {
-    case STATIC_VAR: ASTNode_set_temp_reg(node, virtual_register());
-        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node)); break;
-    case STACK_LOCAL: 
+    // Assigns a new register to the current location and loads
+    // in from register
+    case STATIC_VAR:
+    case STACK_LOCAL:
         ASTNode_set_temp_reg(node, virtual_register());
-        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node)); break;
-    case STACK_PARAM:
-    default:
-        
+        EMIT3OP(LOAD_AI, base, offset, ASTNode_get_temp_reg(node));
         break;
+    case STACK_PARAM:   
+            break;
+    default:break;
     }
-}
-void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
-{
-    
-
 }
 void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
 {
@@ -195,13 +188,12 @@ void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
      * generating the rest of the function (e.g., to be used when generating
      * code for a "return" statement) */
     DATA->current_epilogue_jump_label = anonymous_label();
+    ASTNode_set_int_attribute(node, "stackpointer_offset_size", -1 * node->funcdecl.body->block.variables->size);
 }
-void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node) 
-{
-    
-}
+
 void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) 
 {
+    // Copies code from function return, gets the return register and returns it
     ASTNode_copy_code(node, node->funcreturn.value);
     Operand return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
     EMIT2OP(I2I, return_reg, return_register());
@@ -214,14 +206,6 @@ void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node)
     }
     EMIT1OP(JUMP, DATA->current_epilogue_jump_label);
 }
-
-void CodeGenVisitor_previsit_vardecl(NodeVisitor* visitor, ASTNode* node) {
-    
-}
-
-void CodeGenVisitor_gen_vardecl(NodeVisitor* visitor, ASTNode* node) {
-    
-}
 // Local size of each funcdecl
 void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
 {
@@ -231,7 +215,7 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(PUSH, DATA->bp);
     EMIT2OP(I2I, DATA->sp, DATA->bp);
     // Figure out the offset of the current function
-    EMIT3OP(ADD_I, DATA->sp, int_const(LOCAL_BP_OFFSET), DATA->sp);
+    EMIT3OP(ADD_I, DATA->sp, int_const(ASTNode_get_int_attribute(node, "stackpointer_offset_size") *  WORD_SIZE), DATA->sp);
     /* copy code from body */
     ASTNode_copy_code(node, node->funcdecl.body);
     EMIT1OP(LABEL, DATA->current_epilogue_jump_label);
@@ -240,14 +224,12 @@ void CodeGenVisitor_gen_funcdecl (NodeVisitor* visitor, ASTNode* node)
     EMIT1OP(POP, DATA->bp);
     EMIT0OP(RETURN);
 }
-void CodeGenVisitor_previsit_binaryop(NodeVisitor* visitor, ASTNode* node) 
-{
-    
-}
 void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node) 
 {
+    // Copies code from left and right sides
     ASTNode_copy_code(node, node->binaryop.left);
     ASTNode_copy_code(node, node->binaryop.right);
+    // Sets up registers from left and right nodes as well as creating one for storage
     Operand left_reg    = ASTNode_get_temp_reg(node->binaryop.left);
     Operand right_reg   = ASTNode_get_temp_reg(node->binaryop.right);
     Operand store_reg   = virtual_register();
@@ -287,15 +269,14 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node)
     }
     ASTNode_set_temp_reg(node, store_reg);
 }
-void CodeGenVisitor_previsit_unaryop(NodeVisitor* visitor, ASTNode* node) {
-
-}
 void CodeGenVisitor_gen_unaryop (NodeVisitor* visitor, ASTNode* node) 
 {
+    // Copies code from the child of unary op
     ASTNode_copy_code(node, node->unaryop.child);
     Operand child_reg = ASTNode_get_temp_reg(node->unaryop.child);
     Operand store_reg = virtual_register();
     ASTNode_set_temp_reg(node, store_reg);
+    // Switches to see which operator should be applied
     switch (node->unaryop.operator)
     {
         case NEGOP:
@@ -306,7 +287,6 @@ void CodeGenVisitor_gen_unaryop (NodeVisitor* visitor, ASTNode* node)
             break;
     }
 }
-
 #endif
 InsnList* generate_code (ASTNode* tree)
 {
@@ -317,9 +297,6 @@ InsnList* generate_code (ASTNode* tree)
     NodeVisitor* v = NodeVisitor_new();
     v->data = CodeGenData_new();
     v->dtor = (Destructor)CodeGenData_free;
-    // VarDecls
-    v->previsit_vardecl     = CodeGenVisitor_previsit_vardecl;
-    //v->postvisit_vardecl   = CodeGenVisitor_gen_vardecl;
     // FuncDecls
     v->previsit_funcdecl    = CodeGenVisitor_previsit_funcdecl;
     v->postvisit_funcdecl   = CodeGenVisitor_gen_funcdecl;
@@ -328,12 +305,10 @@ InsnList* generate_code (ASTNode* tree)
     // Literals
     v->postvisit_literal    = CodeGenVisitor_gen_literal; 
     // Assignments
-    v->previsit_assignment  = CodeGenVisitor_previsit_assignment;
     v->postvisit_assignment = CodeGenVisitor_gen_assignment;
     // Binary Op
     v->postvisit_binaryop   = CodeGenVisitor_gen_binaryop;
     // Unary Op
-    v->previsit_unaryop     = CodeGenVisitor_previsit_unaryop;
     v->postvisit_unaryop    = CodeGenVisitor_gen_unaryop;
     // Block Statements
     v->postvisit_block      = CodeGenVisitor_gen_block;

@@ -1,0 +1,4 @@
+def int main()  {}
+def int foo()   {}
+def int bar()   {}
+def int baz()   {}

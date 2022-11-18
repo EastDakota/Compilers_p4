@@ -1,7 +1,7 @@
 main:
   push BP
   i2i SP => BP
-  addI SP, -8 => SP
+  addI SP, 0 => SP
   loadI 2 => r0
   i2i r0 => RET
   jump l0
@@ -12,7 +12,7 @@ l0:
 foo:
   push BP
   i2i SP => BP
-  addI SP, -8 => SP
+  addI SP, 0 => SP
   loadI 0 => r1
   i2i r1 => RET
   jump l1
@@ -46,39 +46,39 @@ stack:  65528: -9999999
 other memory:
 ==========================
 
-Executing: addI SP, -8 => SP
+Executing: addI SP, 0 => SP
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
+sp=65528 bp=65528 ret=-9999999
 virtual regs: 
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999
 other memory:
 ==========================
 
 Executing: loadI 2 => r0
 
 ==========================
-sp=65520 bp=65528 ret=-9999999
+sp=65528 bp=65528 ret=-9999999
 virtual regs:  r0=2
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999
 other memory:
 ==========================
 
 Executing: i2i r0 => RET
 
 ==========================
-sp=65520 bp=65528 ret=2
+sp=65528 bp=65528 ret=2
 virtual regs:  r0=2
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999
 other memory:
 ==========================
 
 Executing: jump l0
 
 ==========================
-sp=65520 bp=65528 ret=2
+sp=65528 bp=65528 ret=2
 virtual regs:  r0=2
-stack:  65528: -9999999  65520: 0
+stack:  65528: -9999999
 other memory:
 ==========================
 

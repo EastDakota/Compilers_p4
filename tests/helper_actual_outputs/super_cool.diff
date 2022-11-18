@@ -1,11 +1,13 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/super_cool.txt	2022-11-18 14:28:10.355950645 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/super_cool.txt	2022-11-18 14:28:10.359950681 -0500
-@@ -2,102 +2,22 @@
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/super_cool.txt	2022-11-18 16:10:18.777009883 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/super_cool.txt	2022-11-18 16:10:18.781009918 -0500
+@@ -1,58 +1,23 @@
+-ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
++main:
    push BP
    i2i SP => BP
    addI SP, -8 => SP
 -  loadI 0 => r1
--  loadAI [BP-8] => r0
+-  loadAI [BP-8] => r-1
 -  storeAI r1 => [BP-8]
 -  jump l0
 +  loadI 0 => r0
@@ -70,50 +72,6 @@
 -other memory:
 -==========================
 -
--Executing: loadAI [BP-8] => r0
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=0 r1=0
--stack:  65528: -9999999  65520: 0
--other memory:
--==========================
--
--Executing: storeAI r1 => [BP-8]
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=0 r1=0
--stack:  65528: -9999999  65520: 0
--other memory:
--==========================
--
--Executing: jump l0
--
--==========================
--sp=65520 bp=65528 ret=-9999999
--virtual regs:  r0=0 r1=0
--stack:  65528: -9999999  65520: 0
--other memory:
--==========================
--
--Executing: i2i BP => SP
--
--==========================
--sp=65528 bp=65528 ret=-9999999
--virtual regs:  r0=0 r1=0
--stack:  65528: -9999999
--other memory:
--==========================
--
--Executing: pop BP
--
--==========================
--sp=65536 bp=-9999999 ret=-9999999
--virtual regs:  r0=0 r1=0
--stack:
--other memory:  65528: -9999999
--==========================
--
--Executing: return
- RETURN VALUE = -9999999
+-Executing: loadAI [BP-8] => r-1
+-ERROR: Register r-1 does not exist
++RETURN VALUE = -9999999

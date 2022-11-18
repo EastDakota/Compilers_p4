@@ -1,6 +1,6 @@
 Running suite(s): Default
 ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
-ERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
+ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Node is missing a temporary registerERROR: Register r-1 does not exist
 69%: Checks: 13, Failures: 2, Errors: 2
 public.c:25:F:Public:B_conditional:0: Assertion 'run_main("  int r; " "  if (true) { r = 2; } " "  else { r = 3; } " "  return r;") == 2' failed: run_main("  int r; " "  if (true) { r = 2; } " "  else { r = 3; } " "  return r;") == 0, 2 == 2
 public.c:31:F:Public:B_whileloop:0: Assertion 'run_main("  int a; a = 0; " "  while (a < 10) { a = a + 1; } " "  return a;") == 10' failed: run_main("  int a; a = 0; " "  while (a < 10) { a = a + 1; } " "  return a;") == 0, 10 == 10

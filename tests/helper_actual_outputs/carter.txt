@@ -1,9 +1,9 @@
-main:
+ERROR: Node is missing a temporary registermain:
   push BP
   i2i SP => BP
   addI SP, -8 => SP
   loadI 6 => r1
-  loadAI [BP-8] => r0
+  loadAI [BP-8] => r-1
   storeAI r1 => [BP-8]
   loadI 9 => r2
   i2i r2 => RET
@@ -56,68 +56,5 @@ stack:  65528: -9999999  65520: 0
 other memory:
 ==========================
 
-Executing: loadAI [BP-8] => r0
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=6
-stack:  65528: -9999999  65520: 0
-other memory:
-==========================
-
-Executing: storeAI r1 => [BP-8]
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=6
-stack:  65528: -9999999  65520: 6
-other memory:
-==========================
-
-Executing: loadI 9 => r2
-
-==========================
-sp=65520 bp=65528 ret=-9999999
-virtual regs:  r0=0 r1=6 r2=9
-stack:  65528: -9999999  65520: 6
-other memory:
-==========================
-
-Executing: i2i r2 => RET
-
-==========================
-sp=65520 bp=65528 ret=9
-virtual regs:  r0=0 r1=6 r2=9
-stack:  65528: -9999999  65520: 6
-other memory:
-==========================
-
-Executing: jump l0
-
-==========================
-sp=65520 bp=65528 ret=9
-virtual regs:  r0=0 r1=6 r2=9
-stack:  65528: -9999999  65520: 6
-other memory:
-==========================
-
-Executing: i2i BP => SP
-
-==========================
-sp=65528 bp=65528 ret=9
-virtual regs:  r0=0 r1=6 r2=9
-stack:  65528: -9999999
-other memory:  65520: 6
-==========================
-
-Executing: pop BP
-
-==========================
-sp=65536 bp=-9999999 ret=9
-virtual regs:  r0=0 r1=6 r2=9
-stack:
-other memory:  65520: 6  65528: -9999999
-==========================
-
-Executing: return
-RETURN VALUE = 9
+Executing: loadAI [BP-8] => r-1
+ERROR: Register r-1 does not exist
