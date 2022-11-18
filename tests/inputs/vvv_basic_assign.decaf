@@ -10,8 +10,8 @@ def int main() {
     a = 2 + 3;
     a = a;
     c = a;
-    //a = c + 2;
-    //b = true || false;
+    a = c + 2;
+    b = true || false;
     d = a + c;
     return a;
 }

@@ -133,7 +133,6 @@ void CodeGenVisitor_gen_program (NodeVisitor* visitor, ASTNode* node)
 void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
     DecafType literal_type = node->literal.type;
     Operand reg = virtual_register();
-    ASTNode_set_temp_reg(node, reg);
     switch (literal_type)
     {
     case INT:
@@ -149,6 +148,7 @@ void CodeGenVisitor_gen_literal (NodeVisitor* visitor, ASTNode* node) {
     default:
         break;
     } 
+    ASTNode_set_temp_reg(node, reg);
 }
 void CodeGenVisitor_previsit_assignment(NodeVisitor* visitor, ASTNode* node) {
 }
@@ -173,15 +173,17 @@ void CodeGenVisitor_gen_assignment(NodeVisitor* visitor, ASTNode* node)
         EMIT3OP(LOAD_AI, base, load_offset, ASTNode_get_temp_reg(node->assignment.value));
         EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.location), base, store_offset);
         break;
+    case BINARYOP:
+        ASTNode_set_temp_reg(node->assignment.location, ASTNode_get_temp_reg(node->assignment.value));
+        EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
+        break;
     default:
         EMIT3OP(STORE_AI, ASTNode_get_temp_reg(node->assignment.value), base, offset);
         break;
     }
-    
 }
 void CodeGenVisitor_previsit_location(NodeVisitor* visitor, ASTNode* node) {
-    Operand var_reg = virtual_register();
-    ASTNode_set_temp_reg(node, var_reg);
+    
 }
 void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
     
@@ -189,6 +191,7 @@ void CodeGenVisitor_gen_location (NodeVisitor* visitor, ASTNode* node){
 void CodeGenVisitor_previsit_literal (NodeVisitor* visitor, ASTNode* node) 
 {
     
+
 }
 void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
 {
@@ -199,12 +202,30 @@ void CodeGenVisitor_previsit_funcdecl (NodeVisitor* visitor, ASTNode* node)
 }
 void CodeGenVisitor_gen_previsit_return (NodeVisitor* visitor, ASTNode* node) 
 {
+    
 }
 void CodeGenVisitor_gen_return (NodeVisitor* visitor, ASTNode* node) 
 {
     ASTNode_copy_code(node, node->funcreturn.value);
-    Operand return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
-    EMIT2OP(I2I, return_reg, return_register());
+    Operand return_reg;
+    switch (node->funcreturn.value->type)
+    {
+        case LITERAL:
+            return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
+            EMIT2OP(I2I, return_reg, return_register());
+            break;
+        case LOCATION:
+            return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
+            Operand base = var_base(node, lookup_symbol(node, node->funcreturn.value->location.name));
+            Operand offset = var_offset(node, lookup_symbol(node, node->funcreturn.value->location.name));
+            EMIT3OP(LOAD_AI, base, offset, return_reg);
+            EMIT2OP(I2I, return_reg, return_register());
+            break;
+        default:
+            return_reg = ASTNode_get_temp_reg(node->funcreturn.value);
+            EMIT2OP(I2I, return_reg, return_register());
+        break;
+    }
 }
 
 void CodeGenVisitor_gen_block (NodeVisitor* visitor, ASTNode* node) 
@@ -248,10 +269,9 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node)
 {
     ASTNode_copy_code(node, node->binaryop.left);
     ASTNode_copy_code(node, node->binaryop.right);
-    Operand store_reg = virtual_register();
-    Operand left_reg = ASTNode_get_temp_reg(node->binaryop.left);
-    Operand right_reg = ASTNode_get_temp_reg(node->binaryop.right);
-    ASTNode_set_temp_reg(node, store_reg);
+    Operand left_reg    = ASTNode_get_temp_reg(node->binaryop.left);
+    Operand right_reg   = ASTNode_get_temp_reg(node->binaryop.right);
+    Operand store_reg   = virtual_register();
     switch (node->binaryop.operator)
     {
         case ADDOP:
@@ -286,8 +306,10 @@ void CodeGenVisitor_gen_binaryop (NodeVisitor* visitor, ASTNode* node)
             break;
             //printf("Error, I really don't know why this would pop up"); exit(1); break;
     }
+    ASTNode_set_temp_reg(node, store_reg);
 }
 void CodeGenVisitor_previsit_unaryop(NodeVisitor* visitor, ASTNode* node) {
+
 }
 void CodeGenVisitor_gen_unaryop (NodeVisitor* visitor, ASTNode* node) 
 {

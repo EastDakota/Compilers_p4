@@ -1,8 +1,8 @@
 digraph AST {
-4 [shape=box, label="Literal value=7\ncode: \nloadI 7 => r0\nreg: r0\ntype: int"];
+4 [shape=box, label="Literal value=7\nreg: r0\ncode: \nloadI 7 => r0\ntype: int"];
 3 [shape=box, label="FuncCall name='print_int'\ntype: void"];
 3 -> 4;
-6 [shape=box, label="Literal value=0\ncode: \nloadI 0 => r1\nreg: r1\ntype: int"];
+6 [shape=box, label="Literal value=0\nreg: r1\ncode: \nloadI 0 => r1\ntype: int"];
 5 [shape=box, label="Return\ncode: \nloadI 0 => r1\ni2i r1 => RET"];
 5 -> 6;
 2 [shape=box, label="Block\ncode: \nloadI 0 => r1\ni2i r1 => RET\njump l0\nsymbolTable: (empty)"];

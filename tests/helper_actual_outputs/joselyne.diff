@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/joselyne.txt	2022-11-16 20:49:20.625601516 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/joselyne.txt	2022-11-16 20:49:20.633601591 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/joselyne.txt	2022-11-18 11:53:25.674762032 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/joselyne.txt	2022-11-18 11:53:25.678762069 -0500
 @@ -1,113 +1,26 @@
 -ERROR: Node is missing a temporary registerERROR: Node is missing a temporary registermain:
 +main:

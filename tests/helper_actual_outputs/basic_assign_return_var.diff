@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_assign_return_var.txt	2022-11-16 20:49:19.781593568 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_assign_return_var.txt	2022-11-16 20:49:19.785593605 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_assign_return_var.txt	2022-11-18 11:53:25.102756930 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_assign_return_var.txt	2022-11-18 11:53:25.106756966 -0500
 @@ -1,7 +1,7 @@
 -ERROR: Node is missing a temporary registermain:
 +main:
@@ -10,10 +10,11 @@
    loadI 6 => r0
    storeAI r0 => [BP-8]
    loadI 4 => r1
-@@ -11,127 +11,11 @@
+@@ -11,128 +11,11 @@
    storeAI r3 => [BP-16]
    loadI 0 => r4
    storeAI r4 => [BP-16]
+-  loadAI [BP-8] => r-1
 -  i2i r-1 => RET
 +  loadAI [BP-8] => r5
 +  i2i r5 => RET
@@ -138,6 +139,6 @@
 -other memory:
 -==========================
 -
--Executing: i2i r-1 => RET
+-Executing: loadAI [BP-8] => r-1
 -ERROR: Register r-1 does not exist
 +RETURN VALUE = -4

@@ -11,6 +11,7 @@ ERROR: Node is missing a temporary registermain:
   storeAI r3 => [BP-16]
   loadI 0 => r4
   storeAI r4 => [BP-16]
+  loadAI [BP-8] => r-1
   i2i r-1 => RET
   jump l0
 l0:
@@ -133,5 +134,5 @@ stack:  65528: -9999999  65520: -4
 other memory:
 ==========================
 
-Executing: i2i r-1 => RET
+Executing: loadAI [BP-8] => r-1
 ERROR: Register r-1 does not exist

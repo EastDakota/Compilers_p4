@@ -1,5 +1,5 @@
---- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_assign_global.txt	2022-11-16 20:49:19.465590592 -0500
-+++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_assign_global.txt	2022-11-16 20:49:19.469590629 -0500
+--- /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_actual_outputs/basic_assign_global.txt	2022-11-18 11:53:24.806754290 -0500
++++ /cs/home/stu/scott6da/cs432/p4-codegen/tests/helper_expected_outputs/basic_assign_global.txt	2022-11-18 11:53:24.810754325 -0500
 @@ -1,7 +1,7 @@
  main:
    push BP
